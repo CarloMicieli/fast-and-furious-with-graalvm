@@ -1,0 +1,56 @@
+name: Java CI
+on:
+  push:
+    paths:
+      - '.github/workflows/java-ci.yml'
+      - 'spring-boot-app/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up GraalVM Community Edition
+        uses: graalvm/setup-graalvm@v1
+        with:
+            version: 'latest'
+            java-version: '17'
+            components: 'native-image'
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print versions
+        run: |
+            echo "GRAALVM_HOME: $GRAALVM_HOME"
+            echo "JAVA_HOME: $JAVA_HOME"
+            java --version
+            gu --version
+            native-image --version
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Compile the project
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build -x check
+          build-root-directory: spring-boot-app
+
+      - name: Checks that sourcecode satisfies formatting rules
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: spotlessCheck
+          build-root-directory: spring-boot-app
+
+      - name: Run the unit tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
+          build-root-directory: spring-boot-app
