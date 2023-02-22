@@ -1,8 +1,8 @@
-name: Java CI
+name: Spring Boot CI
 on:
   push:
     paths:
-      - '.github/workflows/java-ci.yml'
+      - '.github/workflows/spring-boot-ci.yml'
       - 'spring-boot-app/**'
   pull_request:
   workflow_dispatch:
