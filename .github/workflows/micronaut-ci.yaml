@@ -4,6 +4,7 @@ on:
     paths:
       - '.github/workflows/micronaut-ci.yaml'
       - 'micronaut-app/**'
+      - 'shared-java-library/**'
   pull_request:
   workflow_dispatch:
 
@@ -42,7 +43,7 @@ jobs:
     - name: Run the unit tests
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: micronaut-app:test
+        arguments: shared-java-library:test micronaut-app:test
 
     - uses: actions/upload-artifact@v3
       with:

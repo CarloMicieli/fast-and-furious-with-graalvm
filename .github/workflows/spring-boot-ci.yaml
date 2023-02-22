@@ -4,6 +4,7 @@ on:
     paths:
       - '.github/workflows/spring-boot-ci.yaml'
       - 'spring-boot-app/**'
+      - 'shared-java-library/**'
   pull_request:
   workflow_dispatch:
 
@@ -50,7 +51,7 @@ jobs:
       - name: Run the unit tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: spring-boot-app:test
+          arguments: shared-java-library:test spring-boot-app:test
 
       - uses: actions/upload-artifact@v3
         with:

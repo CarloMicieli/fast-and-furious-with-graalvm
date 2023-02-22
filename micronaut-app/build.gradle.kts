@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":shared-java-library"))
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
@@ -30,7 +31,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("it.consolemania.catalog.Application")
+    mainClass.set("it.consolemania.Application")
 }
 
 graalvmNative.toolchainDetection.set(false)
@@ -39,7 +40,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("it.consolemania.catalog.*")
+        annotations("it.consolemania.*")
     }
 }
 

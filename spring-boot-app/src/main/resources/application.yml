@@ -28,7 +28,7 @@ logging:
     org.springframework: INFO
     org.springframework.data: INFO
     org.springframework.jdbc.core: INFO
-    it.consolemania.catalog: INFO
+    it.consolemania: INFO
 
 management:
   server:

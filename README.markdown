@@ -21,18 +21,39 @@ A playground repository to experiment with the GraalVM native compiler.
   git clone https://github.com/CarloMicieli/fast-and-furious-with-graalvm.git
 ```
 
-### Spring boot 
-
 ```bash
-  cd spring-boot-app
-
   sdk install java 22.3.r17-grl
   sdk use java 22.3.r17-grl
 ```
 
+## Running a PostgreSQL Database
+
+Run PostgreSQL as a Docker container
+
 ```bash
-  ./gradlew bootRun
+docker run  -it --rm --name games-db-postgres \
+    -e POSTGRES_USER=postgres \
+    -e POSTGRES_PASSWORD=mysecretpassword \
+    -e POSTGRES_DB=gamesdb \
+    -p 5432:5432 \
+    postgres:15.1-alpine
 ```
+
+### Micronaut
+
+```bash
+  ./gradlew micronaut-app:run
+```
+
+the server is listening at http://localhost:8002
+
+### Spring boot 
+
+```bash
+  ./gradlew spring-boot-app:bootRun
+```
+
+the server is listening at http://localhost:8000
 
 ## Contributing
 

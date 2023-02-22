@@ -35,6 +35,7 @@ extra["recordBuilderVersion"] = "35"
 dependencies {
     annotationProcessor("io.soabase.record-builder:record-builder-processor:${property("recordBuilderVersion")}")
     compileOnly("io.soabase.record-builder:record-builder-core:${property("recordBuilderVersion")}")
+    implementation("com.jcabi:jcabi-urn:0.9")
 }
 
 configurations {

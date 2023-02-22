@@ -61,7 +61,7 @@ dependencies {
         }
     }
 
-    implementation("com.jcabi:jcabi-urn:0.9")
+    implementation(project(":shared-java-library"))
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
@@ -131,5 +131,5 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 }
 
 tasks.getByName<BootRun>("bootRun") {
-    mainClass.set("it.consolemania.catalog.CatalogServiceApplication")
+    mainClass.set("it.consolemania.CatalogServiceApplication")
 }
