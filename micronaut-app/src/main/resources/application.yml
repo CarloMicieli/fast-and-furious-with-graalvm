@@ -2,7 +2,7 @@ micronaut:
   application:
     name: micronaut-games
   server:
-    port: 8002
+    port: 8000
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/gamesdb

@@ -1,4 +1,4 @@
-# Spring Boot App
+# Spring MVC App
 
 ## REST API
 
@@ -27,7 +27,7 @@
 After building the application, you can also run it from the Java CLI:
 
 ```bash
-java -jar build/libs/spring-boot-app-0.0.0-SNAPSHOT.jar
+java -jar build/libs/spring-mvc-app-0.0.0-SNAPSHOT.jar
 ```
 
 ## Running a PostgreSQL Database

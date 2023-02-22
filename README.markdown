@@ -5,7 +5,7 @@
 
 
 [![Micronaut CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/micronaut-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/micronaut-ci.yaml)
-[![Spring Boot CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/spring-boot-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/spring-boot-ci.yaml)
+[![Spring MVC CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/spring-mvc-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/spring-mvc-ci.yaml)
 
 A playground repository to experiment with the GraalVM native compiler.
 
@@ -45,15 +45,15 @@ docker run  -it --rm --name games-db-postgres \
   ./gradlew micronaut-app:run
 ```
 
-the server is listening at http://localhost:8002
+the server is listening at http://localhost:8000
 
-### Spring boot 
+### Spring boot (MVC)
 
 ```bash
-  ./gradlew spring-boot-app:bootRun
+  ./gradlew spring-mvc-app:bootRun
 ```
 
-the server is listening at http://localhost:8000
+the server is listening at http://localhost:8002
 
 ## Contributing
 

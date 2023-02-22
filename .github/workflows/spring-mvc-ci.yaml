@@ -1,9 +1,9 @@
-name: Spring Boot CI
+name: Spring MVC CI
 on:
   push:
     paths:
-      - '.github/workflows/spring-boot-ci.yaml'
-      - 'spring-boot-app/**'
+      - '.github/workflows/spring-mvc-ci.yaml'
+      - 'spring-mvc-app/**'
       - 'shared-java-library/**'
   pull_request:
   workflow_dispatch:
@@ -41,17 +41,17 @@ jobs:
       - name: Compile the project
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: spring-boot-app:build -x check
+          arguments: spring-mvc-app:build -x check
 
       - name: Checks that sourcecode satisfies formatting rules
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: spring-boot-app:spotlessCheck
+          arguments: spring-mvc-app:spotlessCheck
 
       - name: Run the unit tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: shared-java-library:test spring-boot-app:test
+          arguments: shared-java-library:test spring-mvc-app:test
 
       - uses: actions/upload-artifact@v3
         with:
