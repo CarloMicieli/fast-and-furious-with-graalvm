@@ -2,6 +2,9 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/fast-and-furious-with-graalvm)
+
+
+[![Micronaut CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/micronaut-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/micronaut-ci.yaml)
 [![Spring Boot CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/spring-boot-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/spring-boot-ci.yaml)
 
 A playground repository to experiment with the GraalVM native compiler.

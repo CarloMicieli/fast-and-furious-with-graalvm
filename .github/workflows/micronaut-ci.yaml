@@ -1,0 +1,51 @@
+name: Micronaut CI
+on:
+  push:
+    paths:
+      - '.github/workflows/micronaut-ci.yaml'
+      - 'micronaut-app/**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+
+    - name: Set up GraalVM Community Edition
+      uses: graalvm/setup-graalvm@v1
+      with:
+        version: 'latest'
+        java-version: '17'
+        components: 'native-image'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@v1
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Compile the project
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: micronaut-app:build -x check
+
+    - name: Checks that sourcecode satisfies formatting rules
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: micronaut-app:spotlessCheck
+
+    - name: Run the unit tests
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: micronaut-app:test
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Build Artifacts
+        path: |
+          **/build/reports

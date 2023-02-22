@@ -1,0 +1,21 @@
+micronaut:
+  application:
+    name: micronaut-games
+  server:
+    port: 8002
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/gamesdb
+    username: postgres
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
+    db-type: postgres
+    dialect: POSTGRES
+netty:
+  default:
+    allocator:
+      max-order: 3
+flyway:
+  datasources:
+    default:
+      enabled: true

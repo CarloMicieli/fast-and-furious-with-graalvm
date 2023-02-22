@@ -6,36 +6,10 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
-    java
-    id("org.springframework.boot") version "3.0.2"
-    id("io.spring.dependency-management") version "1.1.0"
-    id("org.graalvm.buildtools.native") version "0.9.20"
-    id("me.qoomon.git-versioning") version "6.4.2"
-    id("com.github.ben-manes.versions") version "0.45.0"
-    id("com.diffplug.spotless") version "6.15.0"
-}
-
-group = "it.consolemania.catalog"
-version = "0.0.0-SNAPSHOT"
-gitVersioning.apply {
-    refs {
-        branch("main") {
-            version = "\${commit.timestamp}-\${commit.short}"
-        }
-        tag("v(?<version>.*)") {
-            version = "\${ref.version}"
-        }
-    }
-
-    rev {
-        version = "\${commit.short}-SNAPSHOT"
-    }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+    id("java-common-conventions")
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+    id("org.graalvm.buildtools.native")
 }
 
 tasks {
@@ -53,10 +27,6 @@ tasks {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 configurations {
     all {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -71,14 +41,7 @@ configurations {
     }
 }
 
-configurations {
-    compileClasspath {
-        resolutionStrategy.activateDependencyLocking()
-    }
-}
-
 extra["testcontainersVersion"] = "1.17.6"
-extra["recordBuilderVersion"] = "35"
 
 dependencyManagement {
     imports {
@@ -98,8 +61,6 @@ dependencies {
         }
     }
 
-    annotationProcessor("io.soabase.record-builder:record-builder-processor:${property("recordBuilderVersion")}")
-    compileOnly("io.soabase.record-builder:record-builder-core:${property("recordBuilderVersion")}")
     implementation("com.jcabi:jcabi-urn:0.9")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
@@ -115,26 +76,6 @@ dependencies {
 
 graalvmNative {
     testSupport.set(false)
-}
-
-tasks {
-    test {
-        useJUnitPlatform()
-
-        minHeapSize = "512m"
-        maxHeapSize = "1G"
-        failFast = false
-        ignoreFailures = true
-
-        testLogging {
-            showStandardStreams = false
-            events(PASSED, FAILED, SKIPPED)
-            showExceptions = true
-            showCauses = true
-            showStackTraces = true
-            exceptionFormat = FULL
-        }
-    }
 }
 
 @Suppress("UnstableApiUsage")
@@ -191,34 +132,4 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 
 tasks.getByName<BootRun>("bootRun") {
     mainClass.set("it.consolemania.catalog.CatalogServiceApplication")
-}
-
-spotless {
-    java {
-        // optional: you can specify import groups directly
-        // note: you can use an empty string for all the imports you didn't specify explicitly,
-        // '|' to join group without blank line, and '\\#` prefix for static imports
-        importOrder("java|javax", "it.consolemania.catalog", "", "\\#it.consolemania.catalog", "\\#")
-        removeUnusedImports()
-
-        targetExclude("build/generated/aot*/**")
-
-        palantirJavaFormat("2.9.0")
-
-        formatAnnotations() // fixes formatting of type annotations
-
-        licenseHeaderFile(".spotless/header.txt")
-
-        toggleOffOn("fmt:off", "fmt:on")
-        indentWithSpaces()
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-
-    kotlinGradle {
-        endWithNewline()
-        ktlint()
-        indentWithSpaces()
-        trimTrailingWhitespace()
-    }
 }

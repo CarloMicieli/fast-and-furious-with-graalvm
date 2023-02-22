@@ -2,7 +2,7 @@ name: Spring Boot CI
 on:
   push:
     paths:
-      - '.github/workflows/spring-boot-ci.yml'
+      - '.github/workflows/spring-boot-ci.yaml'
       - 'spring-boot-app/**'
   pull_request:
   workflow_dispatch:
@@ -40,17 +40,20 @@ jobs:
       - name: Compile the project
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build -x check
-          build-root-directory: spring-boot-app
+          arguments: spring-boot-app:build -x check
 
       - name: Checks that sourcecode satisfies formatting rules
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: spotlessCheck
-          build-root-directory: spring-boot-app
+          arguments: spring-boot-app:spotlessCheck
 
       - name: Run the unit tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: test
-          build-root-directory: spring-boot-app
+          arguments: spring-boot-app:test
+
+      - uses: actions/upload-artifact@v3
+        with:
+            name: Build Artifacts
+            path: |
+                **/build/reports
