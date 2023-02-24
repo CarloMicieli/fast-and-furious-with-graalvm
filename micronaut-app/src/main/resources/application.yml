@@ -3,12 +3,11 @@ micronaut:
     name: micronaut-games
   server:
     port: 8000
-datasources:
+r2dbc:
   default:
-    url: jdbc:postgresql://localhost:5432/gamesdb
+    url: r2dbc:postgresql://localhost:5432/gamesdb
     username: postgres
     password: mysecretpassword
-    driver-class-name: org.postgresql.Driver
     db-type: postgres
     dialect: POSTGRES
 netty:
@@ -19,3 +18,21 @@ flyway:
   datasources:
     default:
       enabled: true
+      url: jdbc:postgresql://localhost:5432/gamesdb
+      username: postgres
+      password: mysecretpassword
+      driver-class-name: org.postgresql.Driver
+      db-type: postgres
+      dialect: POSTGRES
+jackson:
+  property-naming-strategy: SNAKE_CASE
+  serialization:
+    indentOutput: true
+    writeDatesAsTimestamps: false
+  deserialization:
+    useBigIntegerForInts: true
+    failOnUnknownProperties: false
+endpoints:
+  all:
+    port: 8001
+    path: /

@@ -18,22 +18,34 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania.platforms;
+package it.consolemania.games;
 
-import io.micronaut.runtime.EmbeddedApplication;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import jakarta.inject.Inject;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import com.jcabi.urn.URN;
+import jakarta.inject.Singleton;
+import java.util.UUID;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-@MicronautTest
-class MicronautAppTest {
+@Singleton
+public class GamesService {
 
-    @Inject
-    EmbeddedApplication<?> application;
+    public Mono<URN> createGame(GameRequest newGame) {
+        throw new UnsupportedOperationException();
+    }
 
-    @Test
-    void testItWorks() {
-        Assertions.assertTrue(application.isRunning());
+    public Mono<Void> updateGame(URN gameUrn, GameRequest game) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Mono<Void> deleteGame(URN gameUrn) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Flux<Game> getGamesByPlatform(UUID platformId) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Mono<Game> getGameByUrn(URN gameUrn) {
+        throw new UnsupportedOperationException();
     }
 }
