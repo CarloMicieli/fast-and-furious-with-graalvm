@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15.1-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: gamesdb
+      POSTGRES_PASSWORD: mysecretpassword
+    healthcheck:
+      test: [ CMD-SHELL, 'pg_isready -U postgres' ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
