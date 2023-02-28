@@ -18,32 +18,35 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania.platforms;
+package it.consolemania.games;
 
 import com.jcabi.urn.URN;
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.data.model.query.builder.sql.Dialect;
-import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
-import java.util.UUID;
-import javax.validation.constraints.NotNull;
+import io.micronaut.serde.annotation.Serdeable;
+import java.time.Year;
+import java.util.List;
 
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+@Serdeable
+public record GameModel(
+        URN gameUrn,
+        String title,
+        List<Genre> genres,
+        List<Mode> modes,
+        String series,
+        String developer,
+        String publisher,
+        Release release,
+        Year year) {
 
-@R2dbcRepository(dialect = Dialect.POSTGRES)
-public interface PlatformsRepository extends ReactiveStreamsCrudRepository<Platform, UUID> {
-    @NonNull Mono<Platform> findByPlatformUrn(@NotNull URN platformUrn);
-
-    @Override
-    @NonNull
-    Mono<Platform> save(Platform platform);
-
-    @Override
-    @NonNull
-    Mono<Void> update(Platform platform);
-
-    @Override
-    @NonNull
-    Flux<Platform> findAll();
+    public static GameModel of(Game game) {
+        return new GameModel(
+                game.gameUrn(),
+                game.title(),
+                game.genres(),
+                game.modes(),
+                game.series(),
+                game.developer(),
+                game.publisher(),
+                game.release(),
+                Year.of(game.year()));
+    }
 }

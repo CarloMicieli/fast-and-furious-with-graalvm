@@ -18,32 +18,25 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania.platforms;
+package it.consolemania;
 
-import com.jcabi.urn.URN;
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.data.model.query.builder.sql.Dialect;
-import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
+import io.micronaut.context.annotation.Factory;
+import it.consolemania.util.UuidSource;
+import jakarta.inject.Singleton;
 import java.util.UUID;
-import javax.validation.constraints.NotNull;
 
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+@Factory
+public class ApplicationFactory {
 
-@R2dbcRepository(dialect = Dialect.POSTGRES)
-public interface PlatformsRepository extends ReactiveStreamsCrudRepository<Platform, UUID> {
-    @NonNull Mono<Platform> findByPlatformUrn(@NotNull URN platformUrn);
+    @Singleton
+    public UuidSource uuidSource() {
+        return new RandomUuidSource();
+    }
 
-    @Override
-    @NonNull
-    Mono<Platform> save(Platform platform);
-
-    @Override
-    @NonNull
-    Mono<Void> update(Platform platform);
-
-    @Override
-    @NonNull
-    Flux<Platform> findAll();
+    static class RandomUuidSource implements UuidSource {
+        @Override
+        public UUID generateNewId() {
+            return UUID.randomUUID();
+        }
+    }
 }

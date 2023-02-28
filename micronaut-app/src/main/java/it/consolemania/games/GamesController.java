@@ -65,8 +65,8 @@ public class GamesController {
     }
 
     @Get(value = "/{gameUrn}", produces = MediaType.APPLICATION_JSON)
-    Mono<Game> getGameByUrn(@PathVariable URN gameUrn) {
-        return gamesService.getGameByUrn(gameUrn);
+    Mono<GameModel> getGameByUrn(@PathVariable URN gameUrn) {
+        return gamesService.getGameByUrn(gameUrn).map(GameModel::of);
     }
 
     @NonNull private static MutableHttpResponse<Void> createdGenre(@NonNull URN gameUrn) {

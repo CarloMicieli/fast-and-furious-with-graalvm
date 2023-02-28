@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Serdeable
-@MappedEntity
+@MappedEntity("games")
 public record Game(
         @Id UUID gameId,
         URN gameUrn,

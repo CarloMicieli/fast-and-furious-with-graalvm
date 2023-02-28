@@ -21,29 +21,42 @@
 package it.consolemania.platforms;
 
 import com.jcabi.urn.URN;
-import io.micronaut.data.annotation.Id;
-import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.serde.annotation.Serdeable;
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.UUID;
+import java.time.Year;
+import java.util.Optional;
 
 @Serdeable
-@MappedEntity("platforms")
-public record Platform(
-        @Id UUID platformId,
+public record PlatformModel(
         URN platformUrn,
         String name,
         String manufacturer,
         Integer generation,
-        String type,
+        PlatformType type,
         Release release,
-        Integer discontinuedYear,
+        Year discontinuedYear,
         boolean discontinued,
         BigDecimal introductoryPrice,
         Integer unitsSold,
         Media media,
-        TechSpecs techSpecs,
-        Instant createdDate,
-        Instant lastModifiedDate,
-        Integer version) {}
+        TechSpecs techSpecs) {
+
+    public static PlatformModel of(Platform platform) {
+        var discountinuedYear =
+                Optional.ofNullable(platform.discontinuedYear()).map(Year::of).orElse(null);
+
+        return new PlatformModel(
+                platform.platformUrn(),
+                platform.name(),
+                platform.manufacturer(),
+                platform.generation(),
+                PlatformType.valueOf(platform.type()),
+                platform.release(),
+                discountinuedYear,
+                platform.discontinued(),
+                platform.introductoryPrice(),
+                platform.unitsSold(),
+                platform.media(),
+                platform.techSpecs());
+    }
+}

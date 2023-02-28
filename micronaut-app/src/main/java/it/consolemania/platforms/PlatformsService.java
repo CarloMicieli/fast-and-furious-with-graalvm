@@ -21,25 +21,72 @@
 package it.consolemania.platforms;
 
 import com.jcabi.urn.URN;
+import it.consolemania.util.UuidSource;
 import jakarta.inject.Singleton;
+import java.time.Year;
+import java.util.Optional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Singleton
 public class PlatformsService {
+
+    private final UuidSource uuidSource;
+    private final PlatformsRepository platformsRepository;
+
+    public PlatformsService(UuidSource uuidSource, PlatformsRepository platformsRepository) {
+        this.uuidSource = uuidSource;
+        this.platformsRepository = platformsRepository;
+    }
+
     public Mono<URN> createPlatform(PlatformRequest request) {
-        throw new UnsupportedOperationException();
+        var newPlatform = entityFromRequest(request, null);
+        return platformsRepository.save(newPlatform)
+            .map(i -> newPlatform.platformUrn());
     }
 
     public Mono<Void> updatePlatform(URN platformUrn, PlatformRequest request) {
-        throw new UnsupportedOperationException();
+        return platformsRepository.findByPlatformUrn(platformUrn)
+            .flatMap(platform -> {
+                var entity = entityFromRequest(request, platform);
+                return platformsRepository.update(entity);
+            })
+            .then();
     }
 
     public Flux<Platform> getAllPlatforms() {
-        throw new UnsupportedOperationException();
+        return platformsRepository.findAll();
     }
 
     public Mono<Platform> getPlatformByUrn(URN platformUrn) {
-        throw new UnsupportedOperationException();
+        return platformsRepository.findByPlatformUrn(platformUrn);
+    }
+
+    Platform entityFromRequest(PlatformRequest platform, Platform entity) {
+        var platformUrn = PlatformURN.of(platform.name());
+
+        var discontinuedYear = Optional.ofNullable(platform.discontinuedYear())
+                .map(Year::getValue)
+                .orElse(null);
+
+        var existingPlatform = Optional.ofNullable(entity);
+
+        return new Platform(
+                existingPlatform.map(Platform::platformId).orElseGet(uuidSource::generateNewId),
+                platformUrn,
+                platform.name(),
+                platform.manufacturer(),
+                platform.generation(),
+                platform.type().name(),
+                platform.release(),
+                discontinuedYear,
+                platform.discontinued(),
+                platform.introductoryPrice(),
+                platform.unitsSold(),
+                platform.media(),
+                platform.techSpecs(),
+                existingPlatform.map(Platform::createdDate).orElse(null),
+                existingPlatform.map(Platform::lastModifiedDate).orElse(null),
+                existingPlatform.map(Platform::version).orElse(null));
     }
 }

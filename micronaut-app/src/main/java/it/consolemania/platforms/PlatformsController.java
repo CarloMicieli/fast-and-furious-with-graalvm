@@ -24,15 +24,17 @@ import com.jcabi.urn.URN;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.Status;
-import it.consolemania.games.Game;
+import it.consolemania.games.GameModel;
 import it.consolemania.games.GamesService;
 import java.net.URI;
 import javax.validation.Valid;
@@ -62,21 +64,25 @@ public class PlatformsController {
     }
 
     @Get
-    Flux<Platform> getAllPlatforms() {
-        return platformsService.getAllPlatforms();
+    @Produces(MediaType.APPLICATION_JSON)
+    Flux<PlatformModel> getAllPlatforms() {
+        return platformsService.getAllPlatforms().map(PlatformModel::of);
     }
 
-    @Get("/{platformUrn")
-    Mono<Platform> getPlatformByUrn(@PathVariable URN platformUrn) {
-        return platformsService.getPlatformByUrn(platformUrn);
+    @Get("/{platformUrn}")
+    @Produces(MediaType.APPLICATION_JSON)
+    Mono<PlatformModel> getPlatformByUrn(@PathVariable URN platformUrn) {
+        return platformsService.getPlatformByUrn(platformUrn).map(PlatformModel::of);
     }
 
-    @Get("/{platformUrn/games")
-    Flux<Game> getGamesByPlatformUrn(@PathVariable URN platformUrn) {
+    @Get("/{platformUrn}/games")
+    @Produces(MediaType.APPLICATION_JSON)
+    Flux<GameModel> getGamesByPlatformUrn(@PathVariable URN platformUrn) {
         return platformsService
                 .getPlatformByUrn(platformUrn)
                 .flux()
-                .flatMap(platform -> gamesService.getGamesByPlatform(platform.platformId()));
+                .flatMap(platform -> gamesService.getGamesByPlatform(platform.platformId()))
+                .map(GameModel::of);
     }
 
     @NonNull private static MutableHttpResponse<Void> createdPlatform(@NonNull URN platformUrn) {
