@@ -4,12 +4,17 @@ micronaut:
   server:
     port: 8000
 r2dbc:
-  default:
-    url: r2dbc:postgresql://localhost:5432/gamesdb
-    username: postgres
-    password: mysecretpassword
-    db-type: postgres
-    dialect: POSTGRES
+  datasources:
+    default:
+      url: r2dbc:postgresql://localhost:5432/gamesdb
+      username: postgres
+      password: mysecretpassword
+      db-type: postgres
+      dialect: POSTGRES
+      options:
+        protocol: postgres
+        initialSize: 48
+        maxSize: 48
 netty:
   default:
     allocator:
@@ -36,3 +41,6 @@ endpoints:
   all:
     port: 8001
     path: /
+logger:
+  levels:
+    root: INFO

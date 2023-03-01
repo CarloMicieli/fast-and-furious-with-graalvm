@@ -24,26 +24,12 @@ import com.jcabi.urn.URN;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
+import io.micronaut.data.repository.reactive.ReactorCrudRepository;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
-
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @R2dbcRepository(dialect = Dialect.POSTGRES)
-public interface PlatformsRepository extends ReactiveStreamsCrudRepository<Platform, UUID> {
+public interface PlatformsRepository extends ReactorCrudRepository<Platform, UUID> {
     @NonNull Mono<Platform> findByPlatformUrn(@NotNull URN platformUrn);
-
-    @Override
-    @NonNull
-    Mono<Platform> save(Platform platform);
-
-    @Override
-    @NonNull
-    Mono<Void> update(Platform platform);
-
-    @Override
-    @NonNull
-    Flux<Platform> findAll();
 }

@@ -20,8 +20,11 @@
  */
 package it.consolemania;
 
+import com.jcabi.urn.URN;
 import io.micronaut.runtime.Micronaut;
+import io.micronaut.serde.annotation.SerdeImport;
 
+@SerdeImport(URN.class)
 public class Application {
 
     public static void main(String[] args) {

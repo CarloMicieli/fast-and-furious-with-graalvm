@@ -20,14 +20,17 @@
  */
 package it.consolemania.platforms;
 
+import io.micronaut.data.annotation.Embeddable;
+import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import javax.validation.constraints.Size;
 
 @RecordBuilder
 @Serdeable
+@Embeddable
 public record TechSpecs(
-        @Size(max = 1000) String cpu,
-        @Size(max = 1000) String memory,
-        @Size(max = 1000) String display,
-        @Size(max = 1000) String sound) {}
+        @Size(max = 1000) @MappedProperty("cpu") String cpu,
+        @Size(max = 1000) @MappedProperty("memory") String memory,
+        @Size(max = 1000) @MappedProperty("display") String display,
+        @Size(max = 1000) @MappedProperty("sound") String sound) {}

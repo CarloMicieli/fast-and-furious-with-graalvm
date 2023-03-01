@@ -41,17 +41,17 @@ public class PlatformsService {
 
     public Mono<URN> createPlatform(PlatformRequest request) {
         var newPlatform = entityFromRequest(request, null);
-        return platformsRepository.save(newPlatform)
-            .map(i -> newPlatform.platformUrn());
+        return platformsRepository.save(newPlatform).map(i -> newPlatform.platformUrn());
     }
 
     public Mono<Void> updatePlatform(URN platformUrn, PlatformRequest request) {
-        return platformsRepository.findByPlatformUrn(platformUrn)
-            .flatMap(platform -> {
-                var entity = entityFromRequest(request, platform);
-                return platformsRepository.update(entity);
-            })
-            .then();
+        return platformsRepository
+                .findByPlatformUrn(platformUrn)
+                .flatMap(platform -> {
+                    var entity = entityFromRequest(request, platform);
+                    return platformsRepository.update(entity);
+                })
+                .then();
     }
 
     public Flux<Platform> getAllPlatforms() {

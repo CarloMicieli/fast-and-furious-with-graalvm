@@ -20,10 +20,16 @@
  */
 package it.consolemania.platforms;
 
+import io.micronaut.data.annotation.Embeddable;
+import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import java.time.LocalDate;
 
+@Embeddable
 @RecordBuilder
 @Serdeable
-public record Release(LocalDate japan, LocalDate northAmerica, LocalDate europe) {}
+public record Release(
+        @MappedProperty("release_jp") LocalDate japan,
+        @MappedProperty("release_na") LocalDate northAmerica,
+        @MappedProperty("release_eu") LocalDate europe) {}

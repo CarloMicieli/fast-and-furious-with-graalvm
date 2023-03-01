@@ -35,7 +35,7 @@ public record PlatformRequest(
         @NotBlank @Size(max = 100) String name,
         @NotBlank @Size(max = 100) String manufacturer,
         @Positive Integer generation,
-        @org.jetbrains.annotations.NotNull PlatformType type,
+        @NotNull PlatformType type,
         Release release,
         Year discontinuedYear,
         boolean discontinued,

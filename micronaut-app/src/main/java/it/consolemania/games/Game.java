@@ -21,12 +21,16 @@
 package it.consolemania.games;
 
 import com.jcabi.urn.URN;
+import io.micronaut.data.annotation.DateCreated;
+import io.micronaut.data.annotation.DateUpdated;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.data.annotation.Version;
 import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Embedded;
 
 @Serdeable
 @MappedEntity("games")
@@ -40,8 +44,8 @@ public record Game(
         String series,
         String developer,
         String publisher,
-        Release release,
+        @Embedded Release release,
         Integer year,
-        Instant createdDate,
-        Instant lastModifiedDate,
-        Integer version) {}
+        @DateCreated Instant createdDate,
+        @DateUpdated Instant lastModifiedDate,
+        @Version Integer version) {}

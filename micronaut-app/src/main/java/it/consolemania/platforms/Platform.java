@@ -21,12 +21,16 @@
 package it.consolemania.platforms;
 
 import com.jcabi.urn.URN;
+import io.micronaut.data.annotation.DateCreated;
+import io.micronaut.data.annotation.DateUpdated;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.data.annotation.Version;
 import io.micronaut.serde.annotation.Serdeable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
+import javax.persistence.Embedded;
 
 @Serdeable
 @MappedEntity("platforms")
@@ -37,13 +41,13 @@ public record Platform(
         String manufacturer,
         Integer generation,
         String type,
-        Release release,
+        @Embedded Release release,
         Integer discontinuedYear,
         boolean discontinued,
         BigDecimal introductoryPrice,
         Integer unitsSold,
         Media media,
-        TechSpecs techSpecs,
-        Instant createdDate,
-        Instant lastModifiedDate,
-        Integer version) {}
+        @Embedded TechSpecs techSpecs,
+        @DateCreated Instant createdDate,
+        @DateUpdated Instant lastModifiedDate,
+        @Version Integer version) {}

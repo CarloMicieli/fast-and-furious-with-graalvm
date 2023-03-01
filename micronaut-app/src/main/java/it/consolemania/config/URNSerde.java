@@ -18,18 +18,34 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania.games;
+package it.consolemania.config;
 
 import com.jcabi.urn.URN;
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.data.model.query.builder.sql.Dialect;
-import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
-import java.util.UUID;
-import javax.validation.constraints.NotNull;
-import reactor.core.publisher.Mono;
+import io.micronaut.core.type.Argument;
+import io.micronaut.serde.Decoder;
+import io.micronaut.serde.Encoder;
+import io.micronaut.serde.Serde;
+import jakarta.inject.Singleton;
+import java.io.IOException;
+import org.jetbrains.annotations.NotNull;
 
-@R2dbcRepository(dialect = Dialect.POSTGRES)
-public interface GamesRepository extends ReactiveStreamsCrudRepository<Game, UUID> {
-    @NonNull Mono<Game> findByGameUrn(@NotNull URN gameUrn);
+@Singleton
+public class URNSerde implements Serde<URN> {
+    @Override
+    public URN deserialize(
+            @NotNull Decoder decoder, @NotNull DecoderContext context, @NotNull Argument<? super URN> type)
+            throws IOException {
+        var urn = decoder.decodeString();
+        return URN.create(urn);
+    }
+
+    @Override
+    public void serialize(
+            @NotNull Encoder encoder,
+            @NotNull EncoderContext context,
+            @NotNull Argument<? extends URN> type,
+            @NotNull URN value)
+            throws IOException {
+        encoder.encodeString(value.toString());
+    }
 }
