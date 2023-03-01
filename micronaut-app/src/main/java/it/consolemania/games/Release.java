@@ -23,12 +23,13 @@ package it.consolemania.games;
 import io.micronaut.data.annotation.Embeddable;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import java.time.LocalDate;
 
-@RecordBuilder
-@Serdeable
 @Embeddable
+@RecordBuilder
+@Serdeable(naming = SnakeCaseStrategy.class)
 public record Release(
         @MappedProperty("release_jp") LocalDate japan,
         @MappedProperty("release_na") LocalDate northAmerica,

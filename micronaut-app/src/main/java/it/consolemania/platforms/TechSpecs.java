@@ -23,11 +23,12 @@ package it.consolemania.platforms;
 import io.micronaut.data.annotation.Embeddable;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import javax.validation.constraints.Size;
 
 @RecordBuilder
-@Serdeable
+@Serdeable(naming = SnakeCaseStrategy.class)
 @Embeddable
 public record TechSpecs(
         @Size(max = 1000) @MappedProperty("cpu") String cpu,

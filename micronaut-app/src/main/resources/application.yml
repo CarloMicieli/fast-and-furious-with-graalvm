@@ -29,14 +29,6 @@ flyway:
       driver-class-name: org.postgresql.Driver
       db-type: postgres
       dialect: POSTGRES
-jackson:
-  property-naming-strategy: SNAKE_CASE
-  serialization:
-    indentOutput: true
-    writeDatesAsTimestamps: false
-  deserialization:
-    useBigIntegerForInts: true
-    failOnUnknownProperties: false
 endpoints:
   all:
     port: 8001

@@ -32,4 +32,6 @@ import reactor.core.publisher.Mono;
 @R2dbcRepository(dialect = Dialect.POSTGRES)
 public interface PlatformsRepository extends ReactorCrudRepository<Platform, UUID> {
     @NonNull Mono<Platform> findByPlatformUrn(@NotNull URN platformUrn);
+
+    @NonNull Mono<Platform> findByName(@NotNull String name);
 }

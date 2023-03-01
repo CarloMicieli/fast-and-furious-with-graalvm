@@ -24,12 +24,18 @@ import com.jcabi.urn.URN;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
+import io.micronaut.data.repository.reactive.ReactorCrudRepository;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
+
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @R2dbcRepository(dialect = Dialect.POSTGRES)
-public interface GamesRepository extends ReactiveStreamsCrudRepository<Game, UUID> {
+public interface GamesRepository extends ReactorCrudRepository<Game, UUID> {
     @NonNull Mono<Game> findByGameUrn(@NotNull URN gameUrn);
+
+    @NotNull Mono<Long> deleteByGameUrn(@NotNull URN gameUrn);
+
+    @NotNull Flux<Game> findByPlatformId(@NotNull UUID platformId);
 }

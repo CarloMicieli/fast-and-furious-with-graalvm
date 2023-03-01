@@ -29,14 +29,15 @@ import io.micronaut.data.annotation.TypeDef;
 import io.micronaut.data.annotation.Version;
 import io.micronaut.data.model.DataType;
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import it.consolemania.config.URNAttributeConverter;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.Embedded;
 
-@Serdeable
 @MappedEntity("games")
+@Serdeable(naming = SnakeCaseStrategy.class)
 public record Game(
         @Id UUID gameId,
         @TypeDef(type = DataType.STRING, converter = URNAttributeConverter.class) URN gameUrn,

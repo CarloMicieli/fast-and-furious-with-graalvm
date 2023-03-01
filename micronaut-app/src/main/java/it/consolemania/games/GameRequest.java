@@ -21,6 +21,7 @@
 package it.consolemania.games;
 
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import java.time.Year;
 import java.util.List;
@@ -29,7 +30,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @RecordBuilder
-@Serdeable
+@Serdeable(naming = SnakeCaseStrategy.class)
 public record GameRequest(
         @NotBlank @Size(max = 100) String title,
         @NotNull List<Genre> genres,

@@ -21,6 +21,7 @@
 package it.consolemania.platforms;
 
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import java.math.BigDecimal;
 import java.time.Year;
@@ -30,7 +31,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @RecordBuilder
-@Serdeable
+@Serdeable(naming = SnakeCaseStrategy.class)
 public record PlatformRequest(
         @NotBlank @Size(max = 100) String name,
         @NotBlank @Size(max = 100) String manufacturer,
