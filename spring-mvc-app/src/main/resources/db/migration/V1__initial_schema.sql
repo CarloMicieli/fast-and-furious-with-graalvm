@@ -10,7 +10,7 @@ CREATE TABLE platforms
     release_jp         date,
     release_na         date,
     discontinued_year  integer,
-    discontinued       varchar(100)     NOT NULL,
+    discontinued       boolean          NOT NULL DEFAULT false,
     introductory_price decimal,
     units_sold         decimal,
     media              varchar(1000)    NOT NULL,

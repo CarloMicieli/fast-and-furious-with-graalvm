@@ -18,32 +18,23 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania;
+package it.consolemania.config;
 
 import com.jcabi.urn.URN;
-import io.micronaut.context.annotation.Factory;
-import io.micronaut.core.convert.TypeConverter;
-import it.consolemania.util.UuidSource;
+import io.micronaut.core.convert.ConversionContext;
+import io.micronaut.data.model.runtime.convert.AttributeConverter;
 import jakarta.inject.Singleton;
-import java.util.UUID;
+import org.jetbrains.annotations.NotNull;
 
-@Factory
-public class ApplicationFactory {
-
-    @Singleton
-    public UuidSource uuidSource() {
-        return new RandomUuidSource();
+@Singleton
+public class URNAttributeConverter implements AttributeConverter<URN, String> {
+    @Override
+    public String convertToPersistedValue(URN entityValue, @NotNull ConversionContext context) {
+        return entityValue == null ? null : entityValue.toString();
     }
 
-    static class RandomUuidSource implements UuidSource {
-        @Override
-        public UUID generateNewId() {
-            return UUID.randomUUID();
-        }
-    }
-
-    @Singleton
-    public TypeConverter<String, URN> stringToURNConverter() {
-        return TypeConverter.of(String.class, URN.class, URN::create);
+    @Override
+    public URN convertToEntityValue(String persistedValue, @NotNull ConversionContext context) {
+        return URN.create(persistedValue);
     }
 }

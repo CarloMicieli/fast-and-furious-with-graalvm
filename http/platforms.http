@@ -1,4 +1,4 @@
-### Send a new platform
+# Send a new platform
 POST http://localhost:8000/platforms
 Content-Type: application/json
 
@@ -13,7 +13,7 @@ Content-Type: application/json
     "europe": "1991-01-01"
   },
   "discontinued_year": 1997,
-  "discontinued": "true",
+  "discontinued": true,
   "introductory_price": 649,
   "units_sold": 1000000,
   "media": "ROM_CARTRIDGE",
@@ -25,16 +25,24 @@ Content-Type: application/json
   }
 }
 
-### Get all platforms
+###
+
+# Get all platforms
 GET http://localhost:8000/platforms
 
-### Get a platform
+###
+
+# Get a platform
 GET http://localhost:8000/platforms/urn:platform:neo-geo-aes
 
-### Get all games by platform
+###
+
+# Get all games by platform
 GET http://localhost:8000/platforms/urn:platform:neo-geo-aes/games
 
-### Update a new platform
+###
+
+# Update a platform
 PUT http://localhost:8000/platforms/urn:platform:neo-geo-aes
 Content-Type: application/json
 
@@ -49,7 +57,7 @@ Content-Type: application/json
     "europe": "1991-01-01"
   },
   "discontinued_year": 1997,
-  "discontinued": "true",
+  "discontinued": true,
   "introductory_price": 649,
   "units_sold": 1000000,
   "media": "ROM_CARTRIDGE",

@@ -25,8 +25,11 @@ import io.micronaut.data.annotation.DateCreated;
 import io.micronaut.data.annotation.DateUpdated;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.data.annotation.TypeDef;
 import io.micronaut.data.annotation.Version;
+import io.micronaut.data.model.DataType;
 import io.micronaut.serde.annotation.Serdeable;
+import it.consolemania.config.URNAttributeConverter;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +39,7 @@ import javax.persistence.Embedded;
 @MappedEntity("games")
 public record Game(
         @Id UUID gameId,
-        URN gameUrn,
+        @TypeDef(type = DataType.STRING, converter = URNAttributeConverter.class) URN gameUrn,
         UUID platformId,
         String title,
         List<Genre> genres,

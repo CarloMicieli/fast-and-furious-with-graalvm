@@ -46,13 +46,13 @@ public class GamesController {
         this.gamesService = gamesService;
     }
 
-    @Post
+    @Post(value = "/", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @Status(HttpStatus.CREATED)
     Mono<HttpResponse<Void>> postGames(@Valid @Body GameRequest request) {
         return gamesService.createGame(request).map(GamesController::createdGenre);
     }
 
-    @Put("/{gameUrn}")
+    @Put(value = "/{gameUrn}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @Status(HttpStatus.NO_CONTENT)
     Mono<Void> putGames(@PathVariable URN gameUrn, @Valid @Body GameRequest request) {
         return gamesService.updateGame(gameUrn, request);

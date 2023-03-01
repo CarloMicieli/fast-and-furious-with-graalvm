@@ -51,13 +51,13 @@ public class PlatformsController {
         this.gamesService = gamesService;
     }
 
-    @Post
+    @Post(value = "/", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @Status(HttpStatus.CREATED)
     Mono<HttpResponse<Void>> postPlatform(@Valid @Body PlatformRequest request) {
         return platformsService.createPlatform(request).map(PlatformsController::createdPlatform);
     }
 
-    @Put("/{platformUrn")
+    @Put(value = "/{platformUrn}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @Status(HttpStatus.NO_CONTENT)
     Mono<Void> putPlatform(@PathVariable URN platformUrn, @Valid @Body PlatformRequest request) {
         return platformsService.updatePlatform(platformUrn, request);

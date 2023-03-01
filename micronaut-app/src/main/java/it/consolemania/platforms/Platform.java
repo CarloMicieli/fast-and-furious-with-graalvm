@@ -25,8 +25,11 @@ import io.micronaut.data.annotation.DateCreated;
 import io.micronaut.data.annotation.DateUpdated;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.data.annotation.TypeDef;
 import io.micronaut.data.annotation.Version;
+import io.micronaut.data.model.DataType;
 import io.micronaut.serde.annotation.Serdeable;
+import it.consolemania.config.URNAttributeConverter;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
@@ -36,7 +39,7 @@ import javax.persistence.Embedded;
 @MappedEntity("platforms")
 public record Platform(
         @Id UUID platformId,
-        URN platformUrn,
+        @TypeDef(type = DataType.STRING, converter = URNAttributeConverter.class) URN platformUrn,
         String name,
         String manufacturer,
         Integer generation,
