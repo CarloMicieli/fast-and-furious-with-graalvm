@@ -18,17 +18,13 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.platforms
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import jakarta.validation.constraints.Size
 
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
-}
+data class TechSpecs(
+    @Size(max = 1000) val cpu: String,
+    @Size(max = 1000) val memory: String,
+    @Size(max = 1000) val display: String,
+    @Size(max = 1000) val sound: String
+)

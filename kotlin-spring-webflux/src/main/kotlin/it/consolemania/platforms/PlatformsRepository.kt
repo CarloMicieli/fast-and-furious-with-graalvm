@@ -18,17 +18,9 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.platforms
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
+import java.util.UUID
 
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
-}
+interface PlatformsRepository : CoroutineCrudRepository<Platform, UUID>

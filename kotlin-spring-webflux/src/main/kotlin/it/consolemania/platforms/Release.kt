@@ -18,17 +18,13 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.platforms
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import org.springframework.data.relational.core.mapping.Column
+import java.time.LocalDate
 
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
-}
+data class Release(
+    @Column("release_jp") val japan: LocalDate?,
+    @Column("release_na") val northAmerica: LocalDate?,
+    @Column("release_eu") val europe: LocalDate?
+)

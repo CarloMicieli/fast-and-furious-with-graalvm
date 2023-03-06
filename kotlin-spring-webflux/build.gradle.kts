@@ -8,6 +8,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":shared-java-library"))
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
     implementation("org.springframework.boot:spring-boot-starter-webflux")

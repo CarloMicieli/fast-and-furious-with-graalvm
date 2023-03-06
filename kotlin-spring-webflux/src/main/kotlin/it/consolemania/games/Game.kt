@@ -18,17 +18,33 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.games
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import com.jcabi.urn.URN
+import jakarta.validation.constraints.NotNull
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.annotation.Version
+import org.springframework.data.relational.core.mapping.Table
+import java.time.Instant
+import java.util.UUID
 
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
-}
+@Table("games")
+data class Game(
+    @Id val gameId: UUID,
+    val gameUrn: URN,
+    val platformId: UUID,
+    val title: String,
+    val genres: List<Genre>,
+    val modes: List<Mode>,
+    val series: String?,
+    val developer: String,
+    val publisher: String,
+    val plot: String?,
+    val rating: Rating,
+    @NotNull val year: Int,
+    @CreatedDate val createdDate: Instant,
+    @LastModifiedDate val lastModifiedDate: Instant,
+    @Version val version: Int
+)

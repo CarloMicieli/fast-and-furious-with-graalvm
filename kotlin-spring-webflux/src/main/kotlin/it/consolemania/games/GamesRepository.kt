@@ -18,17 +18,17 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.games
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import com.jcabi.urn.URN
+import kotlinx.coroutines.flow.Flow
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
+import java.util.UUID
 
-@SpringBootApplication
-class Application
+interface GamesRepository : CoroutineCrudRepository<Game, UUID> {
+    suspend fun findByGameUrn(gameUrn: URN): Game?
 
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
+    fun findAllByPlatformId(platformId: UUID): Flow<Game>
+
+    suspend fun deleteByGameUrn(gameUrn: URN)
 }

@@ -18,17 +18,30 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.games
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
+import java.time.Year
 
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
-}
+data class GameRequest(
+    @NotBlank
+    @Size(max = 100)
+    val title: String,
+    @NotNull val genres: List<Genre>,
+    @NotBlank
+    @Size(max = 100)
+    val platform: String,
+    @NotNull val modes: List<Mode>,
+    @Size(max = 100) val series: String?,
+    @NotBlank
+    @Size(max = 250)
+    val developer: String,
+    @NotBlank
+    @Size(max = 250)
+    val publisher: String,
+    val rating: Rating,
+    @Size(max = 2500) val plot: String?,
+    val year: Year
+)

@@ -18,17 +18,17 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.platforms
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import com.jcabi.urn.URN
+import it.consolemania.util.UuidSource
 
-@SpringBootApplication
-class Application
+class PlatformService(private val uuidSource: UuidSource, private val platformsRepository: PlatformsRepository) {
+    suspend fun createPlatform(platform: PlatformRequest): URN = TODO()
 
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
+    suspend fun updatePlatform(platformUrn: URN, platform: PlatformRequest): Unit = TODO()
+
+    suspend fun getAllPlatforms(): List<Platform> = TODO()
+
+    suspend fun getPlatformByUrn(platformUrn: URN): Platform? = TODO()
 }

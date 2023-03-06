@@ -18,17 +18,29 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania
+package it.consolemania.platforms
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Positive
+import jakarta.validation.constraints.Size
+import java.math.BigDecimal
+import java.time.Year
 
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        ApplicationConfig.common.forEach { addInitializers(it) }
-        ApplicationConfig.catalog.forEach { addInitializers(it) }
-    }
-}
+data class PlatformRequest(
+    @NotBlank
+    @Size(max = 100)
+    val name: String,
+    @NotBlank
+    @Size(max = 100)
+    val manufacturer: String,
+    @Positive val generation: Int,
+    @NotNull val type: PlatformType,
+    val release: Release,
+    val discontinuedYear: Year,
+    val discontinued: Boolean,
+    @Positive val introductoryPrice: BigDecimal,
+    @Positive val unitsSold: Int,
+    @NotNull val media: Media,
+    val techSpecs: TechSpecs
+)
