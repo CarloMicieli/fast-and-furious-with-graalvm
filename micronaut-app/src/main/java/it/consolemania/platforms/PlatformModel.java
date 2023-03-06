@@ -22,11 +22,12 @@ package it.consolemania.platforms;
 
 import com.jcabi.urn.URN;
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.Optional;
 
-@Serdeable
+@Serdeable(naming = SnakeCaseStrategy.class)
 public record PlatformModel(
         URN platformUrn,
         String name,

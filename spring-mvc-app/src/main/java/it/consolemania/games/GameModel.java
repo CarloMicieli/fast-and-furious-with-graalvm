@@ -37,7 +37,8 @@ public final class GameModel extends RepresentationModel<GameModel> {
     private final String series;
     private final String developer;
     private final String publisher;
-    private final Release release;
+    private final Rating rating;
+    private final String plot;
     private final Year year;
     private final Integer version;
 
@@ -49,7 +50,8 @@ public final class GameModel extends RepresentationModel<GameModel> {
             String series,
             String developer,
             String publisher,
-            Release release,
+            String plot,
+            Rating rating,
             Year year,
             Integer version) {
         super(linkTo(GamesController.class).slash(gameUrn).withRel(IanaLinkRelations.SELF));
@@ -61,7 +63,8 @@ public final class GameModel extends RepresentationModel<GameModel> {
         this.series = series;
         this.developer = developer;
         this.publisher = publisher;
-        this.release = release;
+        this.rating = rating;
+        this.plot = plot;
         this.year = year;
         this.version = version;
     }
@@ -94,8 +97,12 @@ public final class GameModel extends RepresentationModel<GameModel> {
         return publisher;
     }
 
-    public Release getRelease() {
-        return release;
+    public Rating getRating() {
+        return rating;
+    }
+
+    public String getPlot() {
+        return plot;
     }
 
     public Year getYear() {
@@ -115,7 +122,8 @@ public final class GameModel extends RepresentationModel<GameModel> {
                 game.series(),
                 game.developer(),
                 game.publisher(),
-                game.release(),
+                game.plot(),
+                game.rating(),
                 Year.of(game.year()),
                 game.version());
     }

@@ -20,8 +20,6 @@
  */
 package it.consolemania.games;
 
-import static org.springframework.data.relational.core.mapping.Embedded.OnEmpty.USE_NULL;
-
 import com.jcabi.urn.URN;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +30,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
-import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("games")
@@ -47,7 +44,8 @@ public record Game(
         String series,
         String developer,
         String publisher,
-        @Embedded(onEmpty = USE_NULL) Release release,
+        String plot,
+        Rating rating,
         @NotNull Integer year,
         @CreatedDate Instant createdDate,
         @LastModifiedDate Instant lastModifiedDate,

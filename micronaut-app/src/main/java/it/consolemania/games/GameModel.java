@@ -34,7 +34,8 @@ public record GameModel(
         String series,
         String developer,
         String publisher,
-        Release release,
+        String plot,
+        Rating rating,
         Year year) {
 
     public static GameModel of(Game game) {
@@ -46,7 +47,8 @@ public record GameModel(
                 game.series(),
                 game.developer(),
                 game.publisher(),
-                game.release(),
+                game.plot(),
+                game.rating(),
                 Year.of(game.year()));
     }
 }

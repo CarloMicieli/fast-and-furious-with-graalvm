@@ -25,7 +25,6 @@ import it.consolemania.platforms.Platform;
 import it.consolemania.platforms.PlatformsRepository;
 import it.consolemania.util.UuidSource;
 import jakarta.inject.Singleton;
-
 import java.util.Optional;
 import java.util.UUID;
 import reactor.core.publisher.Flux;
@@ -38,23 +37,23 @@ public class GamesService {
     private final GamesRepository gamesRepository;
     private final PlatformsRepository platformsRepository;
 
-    public GamesService(UuidSource uuidSource, GamesRepository gamesRepository, PlatformsRepository platformsRepository) {
+    public GamesService(
+            UuidSource uuidSource, GamesRepository gamesRepository, PlatformsRepository platformsRepository) {
         this.uuidSource = uuidSource;
         this.gamesRepository = gamesRepository;
         this.platformsRepository = platformsRepository;
     }
 
     public Mono<URN> createGame(GameRequest request) {
-        return entityFromRequest(request, null)
-            .flatMap(gamesRepository::save)
-            .map(Game::gameUrn);
+        return entityFromRequest(request, null).flatMap(gamesRepository::save).map(Game::gameUrn);
     }
 
     public Mono<Void> updateGame(URN gameUrn, GameRequest request) {
-        return gamesRepository.findByGameUrn(gameUrn)
-            .flatMap(existingGame -> entityFromRequest(request, existingGame))
-            .flatMap(gamesRepository::update)
-            .then();
+        return gamesRepository
+                .findByGameUrn(gameUrn)
+                .flatMap(existingGame -> entityFromRequest(request, existingGame))
+                .flatMap(gamesRepository::update)
+                .then();
     }
 
     public Mono<Void> deleteGame(URN gameUrn) {
@@ -71,27 +70,28 @@ public class GamesService {
 
     Mono<Game> entityFromRequest(GameRequest game, Game gameEntity) {
         return platformsRepository
-            .findByName(game.platform())
-            .map(Platform::platformId)
-            .map(platformId -> {
-                var gameUrn = GameURN.of(game.platform(), game.title());
-                var existingGame = Optional.ofNullable(gameEntity);
+                .findByName(game.platform())
+                .map(Platform::platformId)
+                .map(platformId -> {
+                    var gameUrn = GameURN.of(game.platform(), game.title());
+                    var existingGame = Optional.ofNullable(gameEntity);
 
-                return new Game(
-                    existingGame.map(Game::gameId).orElseGet(uuidSource::generateNewId),
-                    gameUrn,
-                    platformId,
-                    game.title(),
-                    game.genres(),
-                    game.modes(),
-                    game.series(),
-                    game.developer(),
-                    game.publisher(),
-                    game.release(),
-                    game.year().getValue(),
-                    existingGame.map(Game::createdDate).orElse(null),
-                    existingGame.map(Game::lastModifiedDate).orElse(null),
-                    existingGame.map(Game::version).orElse(null));
-            });
+                    return new Game(
+                            existingGame.map(Game::gameId).orElseGet(uuidSource::generateNewId),
+                            gameUrn,
+                            platformId,
+                            game.title(),
+                            game.genres(),
+                            game.modes(),
+                            game.series(),
+                            game.developer(),
+                            game.publisher(),
+                            game.plot(),
+                            game.rating(),
+                            game.year().getValue(),
+                            existingGame.map(Game::createdDate).orElse(null),
+                            existingGame.map(Game::lastModifiedDate).orElse(null),
+                            existingGame.map(Game::version).orElse(null));
+                });
     }
 }

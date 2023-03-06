@@ -36,8 +36,9 @@ public record GameRequest(
         @NotNull List<Genre> genres,
         @NotBlank @Size(max = 100) String platform,
         @NotNull List<Mode> modes,
-        @Size(max = 100) String series,
-        @NotBlank @Size(max = 100) String developer,
-        @NotBlank @Size(max = 100) String publisher,
-        Release release,
+        @Size(max = 250) String series,
+        @NotBlank @Size(max = 250) String developer,
+        @NotBlank @Size(max = 250) String publisher,
+        @Size(max = 2500) String plot,
+        Rating rating,
         Year year) {}

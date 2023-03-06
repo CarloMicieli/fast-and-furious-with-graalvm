@@ -38,7 +38,7 @@ class GamesControllerTest {
     private EmbeddedServer server;
 
     @Inject
-    @Client("/")
+    @Client("/games")
     private HttpClient client;
 
     @Test

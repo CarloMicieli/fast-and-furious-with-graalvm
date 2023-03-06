@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2022-2023 Carlo Micieli
+ *   Copyright (c) 2023 Carlo Micieli
  *
  *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
@@ -20,13 +20,18 @@
  */
 package it.consolemania.games;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.soabase.recordbuilder.core.RecordBuilder;
-import java.time.LocalDate;
-import org.springframework.data.relational.core.mapping.Column;
-
-@RecordBuilder
-public record Release(
-        @Column("release_jp") LocalDate japan,
-        @Column("release_na") @JsonProperty("north_america") LocalDate northAmerica,
-        @Column("release_eu") LocalDate europe) {}
+public enum Rating {
+    CERO_C_AGES_15_PLUS,
+    ESRB_ADULTS_ONLY,
+    ESRB_EARLY_CHILDHOOD,
+    ESRB_EVERYONE,
+    ESRB_EVERYONE_10_PLUS,
+    ESRB_KIDS_TO_ADULTS,
+    ESRB_MATURE,
+    ESRB_RATING_PENDING,
+    ESRB_TEEN,
+    HSRS_17_PLUS,
+    HSRS_ADULT,
+    HSRS_PARENTAL_GUIDANCE,
+    OTHER_NOT_RATED,
+}

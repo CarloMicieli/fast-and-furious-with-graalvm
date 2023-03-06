@@ -3,6 +3,8 @@ micronaut:
     name: micronaut-games
   server:
     port: 8000
+  serde:
+    date-format: yyyy-MM-dd
 r2dbc:
   datasources:
     default:

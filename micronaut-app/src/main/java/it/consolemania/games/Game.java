@@ -34,7 +34,6 @@ import it.consolemania.config.URNAttributeConverter;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.Embedded;
 
 @MappedEntity("games")
 @Serdeable(naming = SnakeCaseStrategy.class)
@@ -43,12 +42,13 @@ public record Game(
         @TypeDef(type = DataType.STRING, converter = URNAttributeConverter.class) URN gameUrn,
         UUID platformId,
         String title,
-        List<Genre> genres,
-        List<Mode> modes,
+        @TypeDef(type = DataType.STRING_ARRAY) List<Genre> genres,
+        @TypeDef(type = DataType.STRING_ARRAY) List<Mode> modes,
         String series,
         String developer,
         String publisher,
-        @Embedded Release release,
+        String plot,
+        Rating rating,
         Integer year,
         @DateCreated Instant createdDate,
         @DateUpdated Instant lastModifiedDate,

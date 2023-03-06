@@ -4,18 +4,13 @@ Content-Type: application/json
 
 {
   "title": "Fatal Fury 2",
-  "slug": "fatfury2",
   "genres": ["FIGHTING"],
   "platform": "Neo Geo AES",
   "modes": ["SINGLE_PLAYER"],
   "series": "Fatal fury",
   "developer": "SNK",
   "publisher": "SNK",
-  "release": {
-    "japan": "1990-04-26",
-    "north_america": "1990-08-22",
-    "europe": "1991-01-01"
-  },
+  "rating": "ESRB_TEEN",
   "year": 1994
 }
 
@@ -25,18 +20,13 @@ Content-Type: application/json
 
 {
   "title": "Fatal Fury 2",
-  "slug": "fatfury2",
   "genres": ["FIGHTING"],
   "platform": "Neo Geo AES",
   "modes": ["SINGLE_PLAYER", "MULTIPLAYER"],
   "series": "Fatal fury",
   "developer": "SNK",
   "publisher": "SNK",
-  "release": {
-    "japan": "1990-04-26",
-    "north_america": "1990-08-22",
-    "europe": "1991-01-01"
-  },
+  "rating": "ESRB_TEEN",
   "year": 1994
 }
 

@@ -20,7 +20,6 @@
  */
 package it.consolemania.games;
 
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 
@@ -34,11 +33,6 @@ public final class Games {
             .genres(List.of(Genre.FIGHTING))
             .modes(List.of(Mode.SINGLE_PLAYER, Mode.MULTIPLAYER))
             .series("Fatal Fury")
-            .release(ReleaseBuilder.builder()
-                    .europe(LocalDate.of(1995, 7, 28))
-                    .northAmerica(LocalDate.of(1995, 7, 28))
-                    .japan(LocalDate.of(1995, 7, 28))
-                    .build())
             .year(Year.of(1995))
             .build();
 
@@ -50,11 +44,6 @@ public final class Games {
             .genres(List.of(Genre.FIGHTING))
             .modes(List.of(Mode.SINGLE_PLAYER, Mode.MULTIPLAYER))
             .series("Fatal Fury")
-            .release(ReleaseBuilder.builder()
-                    .europe(LocalDate.of(1995, 7, 28))
-                    .northAmerica(LocalDate.of(1995, 7, 28))
-                    .japan(LocalDate.of(1995, 7, 28))
-                    .build())
             .year(Year.of(1995))
             .build();
 }
