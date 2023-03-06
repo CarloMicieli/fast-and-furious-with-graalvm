@@ -2,8 +2,8 @@ name: Micronaut CI
 on:
   push:
     paths:
-      - '.github/workflows/micronaut-ci.yaml'
-      - 'micronaut-app/**'
+      - '.github/workflows/java-micronaut-ci.yaml'
+      - 'java-micronaut/**'
       - 'shared-java-library/**'
   pull_request:
   workflow_dispatch:

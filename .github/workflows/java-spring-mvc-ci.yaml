@@ -2,8 +2,8 @@ name: Spring MVC CI
 on:
   push:
     paths:
-      - '.github/workflows/spring-mvc-ci.yaml'
-      - 'spring-mvc-app/**'
+      - '.github/workflows/java-spring-mvc-ci.yaml'
+      - 'java-spring-mvc/**'
       - 'shared-java-library/**'
   pull_request:
   workflow_dispatch:
