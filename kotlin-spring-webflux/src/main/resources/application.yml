@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: consolemania-spring-webflux
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
+  liquibase:
+    enabled: false
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/gamesdb
+    username: postgres
+    password: mysecretpassword
+    pool:
+      enabled: true
+      initial-size: 10
+      max-size: 25
+
+server:
+  port: 8004
+  shutdown: graceful
+
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.r2dbc: INFO
+    org.springframework.web.reactive: INFO
+
+management:
+  server:
+    port: 8005
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true

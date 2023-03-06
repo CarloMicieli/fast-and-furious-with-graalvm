@@ -33,17 +33,17 @@ jobs:
     - name: Compile the project
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: micronaut-app:build -x check
+        arguments: java-micronaut:build -x check
 
     - name: Checks that sourcecode satisfies formatting rules
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: micronaut-app:spotlessCheck
+        arguments: java-micronaut:spotlessCheck
 
     - name: Run the unit tests
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: shared-java-library:test micronaut-app:test
+        arguments: shared-java-library:test java-micronaut:test
 
     - uses: actions/upload-artifact@v3
       with:

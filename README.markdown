@@ -6,6 +6,7 @@
 
 [![Micronaut CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-ci.yaml)
 [![Spring MVC CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-spring-mvc-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-spring-mvc-ci.yaml)
+[![Spring WebFlux CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/kotlin-spring-webflux-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/kotlin-spring-webflux-ci.yaml)
 
 A playground repository to experiment with the GraalVM native compiler.
 

@@ -1,9 +1,9 @@
-name: Spring MVC CI
+name: Spring WebFlux CI
 on:
   push:
     paths:
-      - '.github/workflows/java-spring-mvc-ci.yaml'
-      - 'java-spring-mvc/**'
+      - '.github/workflows/kotlin-spring-webflux-ci.yaml'
+      - 'kotlin-spring-webflux/**'
       - 'shared-java-library/**'
   pull_request:
   workflow_dispatch:
@@ -41,17 +41,17 @@ jobs:
       - name: Compile the project
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: java-spring-mvc:build -x check
+          arguments: kotlin-spring-webflux:build -x check
 
       - name: Checks that sourcecode satisfies formatting rules
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: java-spring-mvc:spotlessCheck
+          arguments: kotlin-spring-webflux:spotlessCheck
 
       - name: Run the unit tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: shared-java-library:test java-spring-mvc:test
+          arguments: shared-java-library:test kotlin-spring-webflux:test
 
       - uses: actions/upload-artifact@v3
         with:

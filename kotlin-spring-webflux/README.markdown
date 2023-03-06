@@ -1,4 +1,4 @@
-# Spring MVC App
+# Spring WebFlux App
 
 ## REST API
 
@@ -27,7 +27,7 @@
 After building the application, you can also run it from the Java CLI:
 
 ```bash
-java -jar build/libs/java-spring-mvc-0.0.0-SNAPSHOT.jar
+java -jar build/libs/kotlin-spring-webflux-0.0.0-SNAPSHOT.jar
 ```
 
 ## Running a PostgreSQL Database

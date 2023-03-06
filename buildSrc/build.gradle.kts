@@ -15,4 +15,6 @@ dependencies {
     implementation("io.micronaut.gradle:micronaut-gradle-plugin:3.7.4")
     implementation("io.micronaut.gradle:micronaut-test-resources-plugin:3.7.4")
     implementation("org.graalvm.buildtools.native:org.graalvm.buildtools.native.gradle.plugin:0.9.20")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
+    implementation("org.jetbrains.kotlin:kotlin-allopen:1.8.10")
 }
