@@ -1,0 +1,16 @@
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]
+pub enum Rating {
+    CERO_C_AGES_15_PLUS,
+    ESRB_ADULTS_ONLY,
+    ESRB_EARLY_CHILDHOOD,
+    ESRB_EVERYONE,
+    ESRB_EVERYONE_10_PLUS,
+    ESRB_KIDS_TO_ADULTS,
+    ESRB_MATURE,
+    ESRB_RATING_PENDING,
+    ESRB_TEEN,
+    HSRS_17_PLUS,
+    HSRS_ADULT,
+    HSRS_PARENTAL_GUIDANCE,
+    OTHER_NOT_RATED,
+}
