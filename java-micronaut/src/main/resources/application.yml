@@ -8,9 +8,9 @@ micronaut:
 r2dbc:
   datasources:
     default:
-      url: r2dbc:postgresql://localhost:5432/gamesdb
-      username: postgres
-      password: mysecretpassword
+      url: r2dbc:postgresql://${micronaut.db.host:localhost}:${micronaut.db.port:5432}/${micronaut.db.name:gamesdb}
+      username: ${micronaut.db.username:postgres}
+      password: ${micronaut.db.password:mysecretpassword}
       db-type: postgres
       dialect: POSTGRES
       options:
@@ -24,10 +24,10 @@ netty:
 flyway:
   datasources:
     default:
-      enabled: true
-      url: jdbc:postgresql://localhost:5432/gamesdb
-      username: postgres
-      password: mysecretpassword
+      enabled: ${micronaut.db.migrations.enabled:true}
+      url: jdbc:postgresql://${micronaut.db.host:localhost}:${micronaut.db.port:5432}/${micronaut.db.name:gamesdb}
+      username: ${micronaut.db.username:postgres}
+      password: ${micronaut.db.password:mysecretpassword}
       driver-class-name: org.postgresql.Driver
       db-type: postgres
       dialect: POSTGRES

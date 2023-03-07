@@ -1,8 +1,89 @@
 version: "3.9"
 
 services:
+  micronaut:
+    image: ghcr.io/carlomicieli/consolemania-micronaut:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8000:8000
+      - 8001:8001
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xss512k -Xmx256M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M
+      - MICRONAUT_DB_HOST=postgres
+      - MICRONAUT_DB_PORT=5432
+      - MICRONAUT_DB_NAME=gamesdb
+      - MICRONAUT_DB_USERNAME=postgres
+      - MICRONAUT_DB_PASSWORD=mysecretpassword
+      - MICRONAUT_DB_MIGRATIONS_ENABLED=false
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.50'
+          memory: 512M
+    networks:
+      - backend
+
+  spring-mvc-native:
+    image: ghcr.io/carlomicieli/consolemania-spring-mvc:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8002:8002
+      - 8003:8003
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xss512k -Xmx256M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=gamesdb
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=mysecretpassword
+      - RUN_DB_MIGRATIONS=false
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.50'
+          memory: 512M
+    networks:
+      - backend
+
+  spring-webflux:
+    image: ghcr.io/carlomicieli/consolemania-spring-webflux:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8004:8004
+      - 8005:8005
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xss512k -Xmx256M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=gamesdb
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=mysecretpassword
+      - RUN_DB_MIGRATIONS=false
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.50'
+          memory: 512M
+    networks:
+      - backend
+
   postgres:
-    image: postgres:15.1-alpine
+    image: postgres:14.7-alpine
     ports:
       - 5432:5432
     environment:
@@ -14,3 +95,16 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    networks:
+      - backend
+
+networks:
+  backend:

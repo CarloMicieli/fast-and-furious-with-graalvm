@@ -1,5 +1,8 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
 plugins {
     id("java-common-conventions")
+    id("com.github.johnrengelman.shadow")
     id("io.micronaut.application")
 }
 
@@ -54,4 +57,14 @@ configurations.all {
         substitute(module("io.micronaut:micronaut-jackson-databind"))
             .using(module("io.micronaut.serde:micronaut-serde-jackson:1.5.0"))
     }
+}
+
+tasks.named<DockerBuildImage>("dockerBuild") {
+    images.add("ghcr.io/carlomicieli/consolemania-micronaut:${project.version}")
+    images.add("ghcr.io/carlomicieli/consolemania-micronaut:latest")
+}
+
+tasks.named<DockerBuildImage>("dockerBuildNative") {
+    images.add("ghcr.io/carlomicieli/consolemania-micronaut-native:${project.version}")
+    images.add("ghcr.io/carlomicieli/consolemania-micronaut-native:latest")
 }

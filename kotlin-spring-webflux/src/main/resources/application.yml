@@ -4,18 +4,18 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 15s
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/gamesdb
-    username: postgres
-    password: mysecretpassword
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:gamesdb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:mysecretpassword}
     pool:
       enabled: true
       initial-size: 10
       max-size: 25
   flyway:
-    enabled: true
-    url: jdbc:postgresql://localhost:5432/gamesdb
-    user: postgres
-    password: mysecretpassword
+    enabled: ${RUN_DB_MIGRATIONS:true}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:gamesdb}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:mysecretpassword}
 
 server:
   port: 8004

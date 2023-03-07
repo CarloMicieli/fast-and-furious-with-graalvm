@@ -139,8 +139,8 @@ tasks.named("check") {
 
 tasks.named<BootBuildImage>("bootBuildImage") {
     builder.set("paketobuildpacks/builder:tiny")
-    imageName.set("ghcr.io/carlomicieli/consolemania-spring-mvc:${project.version}")
-    tags.set(listOf("ghcr.io/carlomicieli/consolemania-spring-mvc:latest"))
+    imageName.set("ghcr.io/carlomicieli/consolemania-spring-mvc-native:${project.version}")
+    tags.set(listOf("ghcr.io/carlomicieli/consolemania-spring-mvc-native:latest"))
 }
 
 tasks.getByName<BootRun>("bootRun") {

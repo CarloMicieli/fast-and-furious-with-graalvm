@@ -40,6 +40,14 @@ docker run  -it --rm --name games-db-postgres \
     postgres:15.1-alpine
 ```
 
+### Build the docker images
+
+```bash
+  ./gradlew java-micronaut:dockerBuildNative
+  ./gradlew kotlin-spring-webflux:bootBuildImage
+  ./gradlew java-spring-mvc:bootBuildImage
+```
+
 ### Micronaut
 
 ```bash
