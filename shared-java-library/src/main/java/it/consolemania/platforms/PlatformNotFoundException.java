@@ -27,12 +27,12 @@ public class PlatformNotFoundException extends RuntimeException {
     private final URN platformUrn;
 
     public PlatformNotFoundException(String platformName) {
-        super("Platform not found");
+        super("Platform not found (name = " + platformName + ")");
         this.platformUrn = PlatformURN.of(platformName);
     }
 
     public PlatformNotFoundException(URN platformUrn) {
-        super("Platform not found");
+        super("Platform not found (urn = " + platformUrn + ")");
         this.platformUrn = platformUrn;
     }
 

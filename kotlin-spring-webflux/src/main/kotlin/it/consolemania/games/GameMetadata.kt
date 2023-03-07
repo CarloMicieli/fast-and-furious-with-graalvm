@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2022-2023 Carlo Micieli
+ *   Copyright (c) 2023 Carlo Micieli
  *
  *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
@@ -18,21 +18,12 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania.games;
+package it.consolemania.games
 
-import com.jcabi.urn.URN;
+import java.time.Instant
 
-@SuppressWarnings("serial")
-public class GameNotFoundException extends RuntimeException {
-
-    private final URN gameUrn;
-
-    public GameNotFoundException(URN gameUrn) {
-        super("The game was not found (urn = " + gameUrn + ")");
-        this.gameUrn = gameUrn;
-    }
-
-    public URN getGameUrn() {
-        return gameUrn;
-    }
-}
+data class GameMetadata(
+    val createdDate: Instant?,
+    val lastModifiedDate: Instant?,
+    val version: Int?
+)

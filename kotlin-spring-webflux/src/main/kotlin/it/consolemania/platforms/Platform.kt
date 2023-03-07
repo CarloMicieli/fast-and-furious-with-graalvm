@@ -25,11 +25,10 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
-import org.springframework.data.relational.core.mapping.Embedded
-import org.springframework.data.relational.core.mapping.Embedded.OnEmpty
 import org.springframework.data.relational.core.mapping.Table
 import java.math.BigDecimal
 import java.time.Instant
+import java.time.LocalDate
 import java.util.*
 
 @Table("platforms")
@@ -40,13 +39,18 @@ data class Platform(
     val manufacturer: String,
     val generation: Int,
     val type: String,
-    @Embedded(onEmpty = OnEmpty.USE_NULL) val release: Release,
+    val releaseJp: LocalDate?,
+    val releaseNa: LocalDate?,
+    val releaseEu: LocalDate?,
     val discontinuedYear: Int?,
     val discontinued: Boolean,
     val introductoryPrice: BigDecimal,
     val unitsSold: Int,
     val media: Media,
-    @Embedded(onEmpty = OnEmpty.USE_NULL) val techSpecs: TechSpecs,
+    val cpu: String,
+    val memory: String,
+    val display: String,
+    val sound: String,
     @CreatedDate val createdDate: Instant?,
     @LastModifiedDate val lastModifiedDate: Instant?,
     @Version val version: Int?

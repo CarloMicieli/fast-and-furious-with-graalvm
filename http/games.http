@@ -1,5 +1,7 @@
-### Send a new game
-POST http://localhost:8000/games
+###
+
+# Create a new game
+POST http://{{host}}:{{port}}/games
 Content-Type: application/json
 
 {
@@ -14,8 +16,10 @@ Content-Type: application/json
   "year": 1994
 }
 
-### Send a new game
-PUT http://localhost:8000/games/urn:game:neo-geo-aes:fatal-fury-2
+###
+
+# Update a game
+PUT http://{{host}}:{{port}}/games/urn:game:neo-geo-aes:fatal-fury-2
 Content-Type: application/json
 
 {
@@ -30,5 +34,7 @@ Content-Type: application/json
   "year": 1994
 }
 
-### Get a game by id
-GET http://localhost:8000/games/urn:game:neo-geo-aes:fatal-fury-2
+###
+
+# Get a game by id
+GET http://{{host}}:{{port}}/games/urn:game:neo-geo-aes:fatal-fury-2

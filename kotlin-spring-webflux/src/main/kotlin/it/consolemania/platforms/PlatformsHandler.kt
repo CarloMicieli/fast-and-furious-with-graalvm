@@ -63,7 +63,7 @@ class PlatformsHandler(
     }
 
     suspend fun getAllPlatforms(@Suppress("UNUSED_PARAMETER") request: ServerRequest): ServerResponse {
-        val result = platformService.getAllPlatforms()
+        val result = platformService.getAllPlatforms().map { PlatformModel.of(it) }.toList()
         val body = CollectionModel.of(result)
         return ServerResponse.ok()
             .contentType(MediaType.APPLICATION_JSON)

@@ -21,7 +21,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    runtimeOnly("org.postgresql:r2dbc-postgresql:1.0.0.RELEASE")
+    implementation("org.postgresql:r2dbc-postgresql:1.0.0.RELEASE")
     runtimeOnly("org.postgresql:postgresql")
 }
 

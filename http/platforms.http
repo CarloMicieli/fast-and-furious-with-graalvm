@@ -1,9 +1,9 @@
 # Send a new platform
-POST http://localhost:8000/platforms
+POST http://{{host}}:{{port}}/platforms
 Content-Type: application/json
 
 {
-  "name": "Neo Geo AES",
+  "name": "Neo Geo MVS",
   "manufacturer":  "SNK",
   "generation": 4,
   "type": "HOME_VIDEO_GAME_CONSOLE",
@@ -28,22 +28,22 @@ Content-Type: application/json
 ###
 
 # Get all platforms
-GET http://localhost:8000/platforms
+GET http://{{host}}:{{port}}/platforms
 
 ###
 
 # Get a platform
-GET http://localhost:8000/platforms/urn:platform:neo-geo-aes
+GET http://{{host}}:{{port}}/platforms/urn:platform:neo-geo-aes
 
 ###
 
 # Get all games by platform
-GET http://localhost:8000/platforms/urn:platform:neo-geo-aes/games
+GET http://{{host}}:{{port}}/platforms/urn:platform:neo-geo-aes/games
 
 ###
 
 # Update a platform
-PUT http://localhost:8000/platforms/urn:platform:neo-geo-aes
+PUT http://{{host}}:{{port}}/platforms/urn:platform:neo-geo-aes
 Content-Type: application/json
 
 {

@@ -20,11 +20,20 @@
  */
 package it.consolemania.platforms
 
+import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
 data class TechSpecs(
-    @Size(max = 1000) val cpu: String,
-    @Size(max = 1000) val memory: String,
-    @Size(max = 1000) val display: String,
-    @Size(max = 1000) val sound: String
+    @NotBlank
+    @Size(max = 1000)
+    val cpu: String,
+    @NotBlank
+    @Size(max = 1000)
+    val memory: String,
+    @NotBlank
+    @Size(max = 1000)
+    val display: String,
+    @NotBlank
+    @Size(max = 1000)
+    val sound: String
 )

@@ -25,7 +25,6 @@ import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.RepresentationModel
 import java.math.BigDecimal
-import java.time.Instant
 import java.time.Year
 
 data class PlatformModel(
@@ -41,9 +40,7 @@ data class PlatformModel(
     val unitsSold: Int,
     val media: Media,
     val techSpecs: TechSpecs,
-    val createdDate: Instant?,
-    val lastModifiedDate: Instant?,
-    val version: Int?
+    val metadata: PlatformMetadata
 ) : RepresentationModel<PlatformModel>(platformLinks(platformUrn)) {
 
     companion object {
@@ -53,16 +50,27 @@ data class PlatformModel(
             manufacturer = platform.manufacturer,
             generation = platform.generation,
             type = platform.type,
-            release = platform.release,
+            release = Release(
+                japan = platform.releaseJp,
+                europe = platform.releaseEu,
+                northAmerica = platform.releaseNa
+            ),
             discontinuedYear = platform.discontinuedYear?.let { Year.of(it) },
             discontinued = platform.discontinued,
             introductoryPrice = platform.introductoryPrice,
             unitsSold = platform.unitsSold,
             media = platform.media,
-            techSpecs = platform.techSpecs,
-            createdDate = platform.createdDate,
-            lastModifiedDate = platform.lastModifiedDate,
-            version = platform.version
+            techSpecs = TechSpecs(
+                cpu = platform.cpu,
+                display = platform.display,
+                memory = platform.memory,
+                sound = platform.sound
+            ),
+            metadata = PlatformMetadata(
+                createdDate = platform.createdDate,
+                lastModifiedDate = platform.lastModifiedDate,
+                version = platform.version
+            )
         )
 
         fun platformLinks(platformUrn: URN): List<Link> {

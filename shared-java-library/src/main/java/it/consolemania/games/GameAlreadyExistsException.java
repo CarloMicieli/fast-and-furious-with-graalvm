@@ -27,6 +27,7 @@ public final class GameAlreadyExistsException extends RuntimeException {
     private final URN gameUrn;
 
     public GameAlreadyExistsException(URN gameUrn) {
+        super("The game already exists (urn = " + gameUrn + ")");
         this.gameUrn = gameUrn;
     }
 

@@ -27,6 +27,7 @@ public final class PlatformAlreadyExistsException extends RuntimeException {
     private final URN platformUrn;
 
     public PlatformAlreadyExistsException(URN platformUrn) {
+        super("The platform already exists (urn = " + platformUrn + ")");
         this.platformUrn = platformUrn;
     }
 

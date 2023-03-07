@@ -20,11 +20,10 @@
  */
 package it.consolemania.platforms
 
-import org.springframework.data.relational.core.mapping.Column
 import java.time.LocalDate
 
 data class Release(
-    @Column("release_jp") val japan: LocalDate?,
-    @Column("release_na") val northAmerica: LocalDate?,
-    @Column("release_eu") val europe: LocalDate?
+    val japan: LocalDate?,
+    val northAmerica: LocalDate?,
+    val europe: LocalDate?
 )

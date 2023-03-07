@@ -24,7 +24,6 @@ import com.jcabi.urn.URN
 import org.springframework.hateoas.IanaLinkRelations
 import org.springframework.hateoas.Link
 import org.springframework.hateoas.RepresentationModel
-import java.time.Instant
 import java.time.Year
 import java.util.UUID
 
@@ -40,9 +39,7 @@ data class GameModel(
     val plot: String?,
     val rating: Rating,
     val year: Year,
-    val createdDate: Instant?,
-    val lastModifiedDate: Instant?,
-    val version: Int?
+    val metadata: GameMetadata
 ) : RepresentationModel<GameModel>(gameLinks(gameUrn)) {
 
     companion object {
@@ -58,9 +55,11 @@ data class GameModel(
             plot = game.plot,
             rating = game.rating,
             year = Year.of(game.year),
-            createdDate = game.createdDate,
-            lastModifiedDate = game.lastModifiedDate,
-            version = game.version
+            metadata = GameMetadata(
+                createdDate = game.createdDate,
+                lastModifiedDate = game.lastModifiedDate,
+                version = game.version
+            )
         )
 
         fun gameLinks(gameUrn: URN): List<Link> {

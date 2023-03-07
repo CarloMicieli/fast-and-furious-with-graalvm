@@ -74,8 +74,21 @@ dependencies {
     testImplementation("org.mockito:mockito-inline")
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+        vendor.set(JvmVendorSpec.GRAAL_VM)
+    }
+}
+
 graalvmNative {
     testSupport.set(false)
+
+    // Use the newest version of the graalvm-reachability-metadata metadata
+    metadataRepository {
+        enabled.set(true)
+        version.set("0.2.5")
+    }
 }
 
 @Suppress("UnstableApiUsage")

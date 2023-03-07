@@ -26,6 +26,7 @@ logging:
     org.springframework: INFO
     org.springframework.r2dbc: INFO
     org.springframework.web.reactive: INFO
+    it.consolemania: INFO
 
 management:
   server:

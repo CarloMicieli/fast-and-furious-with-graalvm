@@ -29,6 +29,7 @@ import org.springframework.boot.web.reactive.error.ErrorAttributes
 import org.springframework.context.ApplicationContext
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.http.ProblemDetail
 import org.springframework.http.codec.ServerCodecConfigurer
@@ -74,11 +75,18 @@ class GlobalErrorWebExceptionHandler(
         log.error("An error has occurred", ex)
 
         val status = errorPropertiesMap.getOrDefault("status", HttpStatus.INTERNAL_SERVER_ERROR.value()) as Int
-        return if (status == 404) {
-            ServerResponse.notFound().build()
-        } else {
-            val problemDetails = problemDetailsFrom(errorPropertiesMap)
-            problemDetails.toServerResponseMono()
+
+        return when (status) {
+            404 -> ServerResponse.notFound().build()
+            500 -> ProblemDetail.forStatus(500).apply {
+                title = "Internal server error"
+                type = URI.create("https://api.bookmarks.com/errors/internal-server-error")
+                detail = ex.message
+            }.toServerResponseMono()
+            else ->{
+                val problemDetails = problemDetailsFrom(errorPropertiesMap)
+                problemDetails.toServerResponseMono()
+            }
         }
     }
 

@@ -22,7 +22,7 @@ package it.consolemania.platforms
 
 import com.jcabi.urn.URN
 import it.consolemania.util.UuidSource
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.Flow
 
 class PlatformService(private val uuidSource: UuidSource, private val platformsRepository: PlatformsRepository) {
     suspend fun createPlatform(platform: PlatformRequest): URN {
@@ -52,21 +52,26 @@ class PlatformService(private val uuidSource: UuidSource, private val platformsR
             platform.manufacturer,
             platform.generation,
             platform.type.name,
-            platform.release,
+            platform.release.europe,
+            platform.release.japan,
+            platform.release.northAmerica,
             discontinuedYear,
             platform.discontinued,
             platform.introductoryPrice,
             platform.unitsSold,
             platform.media,
-            platform.techSpecs,
+            platform.techSpecs.cpu,
+            platform.techSpecs.memory,
+            platform.techSpecs.display,
+            platform.techSpecs.sound,
             existingPlatform?.createdDate,
             existingPlatform?.lastModifiedDate,
             existingPlatform?.version
         )
     }
 
-    suspend fun getAllPlatforms(): List<Platform> =
-        platformsRepository.findAll().toList()
+    fun getAllPlatforms(): Flow<Platform> =
+        platformsRepository.findAll()
 
     suspend fun getPlatformByUrn(platformUrn: URN): Platform? =
         platformsRepository.findFirstByPlatformUrn(platformUrn)
