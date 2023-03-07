@@ -133,3 +133,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 tasks.getByName<BootRun>("bootRun") {
     mainClass.set("it.consolemania.CatalogServiceApplication")
 }
+
+springBoot {
+    buildInfo()
+}

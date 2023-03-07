@@ -18,19 +18,6 @@
  *    specific language governing permissions and limitations
  *    under the License.
  */
-package it.consolemania.games
+package it.consolemania
 
-import com.jcabi.urn.URN
-import kotlinx.coroutines.flow.Flow
-import org.springframework.data.repository.kotlin.CoroutineCrudRepository
-import java.util.UUID
-
-interface GamesRepository : CoroutineCrudRepository<Game, UUID> {
-    suspend fun findByGameUrn(gameUrn: URN): Game?
-
-    fun findAllByPlatformId(platformId: UUID): Flow<Game>
-
-    suspend fun deleteByGameUrn(gameUrn: URN)
-
-    suspend fun existsByGameUrn(gameUrn: URN): Boolean
-}
+class BadRequestException(message: String) : RuntimeException(message)

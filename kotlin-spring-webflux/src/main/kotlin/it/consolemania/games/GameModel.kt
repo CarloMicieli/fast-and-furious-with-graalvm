@@ -21,18 +21,14 @@
 package it.consolemania.games
 
 import com.jcabi.urn.URN
-import jakarta.validation.constraints.NotNull
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.LastModifiedDate
-import org.springframework.data.annotation.Version
-import org.springframework.data.relational.core.mapping.Table
+import org.springframework.hateoas.IanaLinkRelations
+import org.springframework.hateoas.Link
+import org.springframework.hateoas.RepresentationModel
 import java.time.Instant
+import java.time.Year
 import java.util.UUID
 
-@Table("games")
-data class Game(
-    @Id val gameId: UUID,
+data class GameModel(
     val gameUrn: URN,
     val platformId: UUID,
     val title: String,
@@ -43,8 +39,34 @@ data class Game(
     val publisher: String,
     val plot: String?,
     val rating: Rating,
-    @NotNull val year: Int,
-    @CreatedDate val createdDate: Instant?,
-    @LastModifiedDate val lastModifiedDate: Instant?,
-    @Version val version: Int?
-)
+    val year: Year,
+    val createdDate: Instant?,
+    val lastModifiedDate: Instant?,
+    val version: Int?
+) : RepresentationModel<GameModel>(gameLinks(gameUrn)) {
+
+    companion object {
+        fun of(game: Game) = GameModel(
+            gameUrn = game.gameUrn,
+            platformId = game.platformId,
+            title = game.title,
+            genres = game.genres,
+            modes = game.modes,
+            series = game.series,
+            developer = game.developer,
+            publisher = game.publisher,
+            plot = game.plot,
+            rating = game.rating,
+            year = Year.of(game.year),
+            createdDate = game.createdDate,
+            lastModifiedDate = game.lastModifiedDate,
+            version = game.version
+        )
+
+        fun gameLinks(gameUrn: URN): List<Link> {
+            return listOf(
+                Link.of("/games/$gameUrn", IanaLinkRelations.SELF)
+            )
+        }
+    }
+}

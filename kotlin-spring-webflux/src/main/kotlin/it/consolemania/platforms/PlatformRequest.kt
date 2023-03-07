@@ -37,7 +37,7 @@ data class PlatformRequest(
     @Positive val generation: Int,
     @NotNull val type: PlatformType,
     val release: Release,
-    val discontinuedYear: Year,
+    val discontinuedYear: Year?,
     val discontinued: Boolean,
     @Positive val introductoryPrice: BigDecimal,
     @Positive val unitsSold: Int,

@@ -16,6 +16,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("org.springframework.hateoas:spring-hateoas")
+    implementation("org.flywaydb:flyway-core")
+    runtimeOnly("org.springframework.boot:spring-boot-starter-data-jdbc")
+    runtimeOnly("org.postgresql:postgresql")
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     runtimeOnly("org.postgresql:r2dbc-postgresql:1.0.0.RELEASE")

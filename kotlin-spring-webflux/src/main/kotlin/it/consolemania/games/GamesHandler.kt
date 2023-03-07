@@ -21,9 +21,7 @@
 package it.consolemania.games
 
 import com.jcabi.urn.URN
-import org.springframework.hateoas.EntityModel
-import org.springframework.hateoas.IanaLinkRelations
-import org.springframework.hateoas.Link
+import it.consolemania.BadRequestException
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
@@ -35,14 +33,14 @@ import java.net.URI
 class GamesHandler(private val gamesService: GamesService) {
 
     suspend fun postGame(request: ServerRequest): ServerResponse {
-        val gameRequest = request.awaitBodyOrNull<GameRequest>()!!
+        val gameRequest = request.awaitBodyOrNull<GameRequest>() ?: throw BadRequestException("Empty game request")
         val gameUrn = gamesService.createGame(gameRequest)
         return ServerResponse.created(URI.create("/games/$gameUrn")).buildAndAwait()
     }
 
     suspend fun putGame(request: ServerRequest): ServerResponse {
         val gameUrn = URN.create(request.pathVariable("gameUrn"))
-        val gameRequest = request.awaitBodyOrNull<GameRequest>()!!
+        val gameRequest = request.awaitBodyOrNull<GameRequest>() ?: throw BadRequestException("Empty game request")
 
         val game = gamesService.getGameByUrn(gameUrn)
         if (game != null) {
@@ -63,8 +61,7 @@ class GamesHandler(private val gamesService: GamesService) {
         val game = gamesService.getGameByUrn(gameUrn)
 
         return if (game != null) {
-            val self = Link.of("/games/$gameUrn", IanaLinkRelations.SELF)
-            val body = EntityModel.of(game, self)
+            val body = GameModel.of(game)
             ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValueAndAwait(body)

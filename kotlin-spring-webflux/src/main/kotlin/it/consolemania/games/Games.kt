@@ -20,6 +20,7 @@
  */
 package it.consolemania.games
 
+import it.consolemania.platforms.PlatformService
 import it.consolemania.util.UuidSource
 import org.springframework.context.support.beans
 import org.springframework.http.MediaType
@@ -37,7 +38,8 @@ object Games {
         bean {
             val uuidSource = ref<UuidSource>()
             val gamesRepository = ref<GamesRepository>()
-            GamesService(uuidSource, gamesRepository)
+            val platformService = ref<PlatformService>()
+            GamesService(uuidSource, gamesRepository, platformService)
         }
 
         bean {

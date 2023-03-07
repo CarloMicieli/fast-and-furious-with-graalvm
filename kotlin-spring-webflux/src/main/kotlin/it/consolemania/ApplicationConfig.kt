@@ -34,8 +34,9 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.jcabi.urn.URN
 import it.consolemania.games.Games
 import it.consolemania.platforms.Platforms
+import it.consolemania.util.UuidSource
 import org.springframework.context.support.beans
-import java.io.IOException
+import java.util.UUID
 
 object ApplicationConfig {
     val common = listOf(
@@ -49,6 +50,7 @@ object ApplicationConfig {
 }
 
 val commonBeans = beans {
+    bean<RandomUuidSource>()
     bean<ObjectMapper>() {
         ObjectMapper()
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
@@ -66,10 +68,12 @@ fun customSerializerModule(): Module? {
     return module
 }
 
-internal class URNSerializer @JvmOverloads constructor(t: Class<URN?>? = null) :
-    StdSerializer<URN>(t) {
-    @Throws(IOException::class)
+class URNSerializer(t: Class<URN>? = null) : StdSerializer<URN>(t) {
     override fun serialize(value: URN, gen: JsonGenerator, provider: SerializerProvider) {
         gen.writeString(value.toString())
     }
+}
+
+object RandomUuidSource : UuidSource {
+    override fun generateNewId(): UUID = UUID.randomUUID()
 }

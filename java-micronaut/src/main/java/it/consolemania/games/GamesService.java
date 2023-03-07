@@ -46,9 +46,9 @@ public class GamesService {
 
     public Mono<URN> createGame(GameRequest request) {
         return entityFromRequest(request, null)
-            //.filterWhen(newGame -> !gamesRepository.existsByGameUrn(newGame.gameUrn()))
-            .flatMap(gamesRepository::save)
-            .map(Game::gameUrn);
+                // .filterWhen(newGame -> !gamesRepository.existsByGameUrn(newGame.gameUrn()))
+                .flatMap(gamesRepository::save)
+                .map(Game::gameUrn);
     }
 
     public Mono<Void> updateGame(URN gameUrn, GameRequest request) {

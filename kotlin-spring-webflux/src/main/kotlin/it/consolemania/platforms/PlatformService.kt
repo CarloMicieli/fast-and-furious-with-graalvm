@@ -22,13 +22,55 @@ package it.consolemania.platforms
 
 import com.jcabi.urn.URN
 import it.consolemania.util.UuidSource
+import kotlinx.coroutines.flow.toList
 
 class PlatformService(private val uuidSource: UuidSource, private val platformsRepository: PlatformsRepository) {
-    suspend fun createPlatform(platform: PlatformRequest): URN = TODO()
+    suspend fun createPlatform(platform: PlatformRequest): URN {
+        val newPlatform = entityFromRequest(platform, null)
+        if (platformsRepository.existsByPlatformUrn(newPlatform.platformUrn)) {
+            throw PlatformAlreadyExistsException(newPlatform.platformUrn)
+        }
 
-    suspend fun updatePlatform(platformUrn: URN, platform: PlatformRequest): Unit = TODO()
+        platformsRepository.save(newPlatform)
+        return newPlatform.platformUrn
+    }
 
-    suspend fun getAllPlatforms(): List<Platform> = TODO()
+    suspend fun updatePlatform(platformUrn: URN, updateRequest: PlatformRequest) {
+        val platform = entityFromRequest(updateRequest, platformsRepository.findFirstByPlatformUrn(platformUrn))
+        platformsRepository.save(platform)
+    }
 
-    suspend fun getPlatformByUrn(platformUrn: URN): Platform? = TODO()
+    private fun entityFromRequest(platform: PlatformRequest, existingPlatform: Platform?): Platform {
+        val platformUrn = PlatformURN.of(platform.name)
+
+        val discontinuedYear: Int? = platform.discontinuedYear?.value
+
+        return Platform(
+            existingPlatform?.platformId ?: uuidSource.generateNewId(),
+            platformUrn,
+            platform.name,
+            platform.manufacturer,
+            platform.generation,
+            platform.type.name,
+            platform.release,
+            discontinuedYear,
+            platform.discontinued,
+            platform.introductoryPrice,
+            platform.unitsSold,
+            platform.media,
+            platform.techSpecs,
+            existingPlatform?.createdDate,
+            existingPlatform?.lastModifiedDate,
+            existingPlatform?.version
+        )
+    }
+
+    suspend fun getAllPlatforms(): List<Platform> =
+        platformsRepository.findAll().toList()
+
+    suspend fun getPlatformByUrn(platformUrn: URN): Platform? =
+        platformsRepository.findFirstByPlatformUrn(platformUrn)
+
+    suspend fun getPlatformByName(name: String): Platform? =
+        platformsRepository.findFirstByName(name)
 }

@@ -3,8 +3,6 @@ spring:
     name: consolemania-spring-webflux
   lifecycle:
     timeout-per-shutdown-phase: 15s
-  liquibase:
-    enabled: false
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/gamesdb
     username: postgres
@@ -13,6 +11,11 @@ spring:
       enabled: true
       initial-size: 10
       max-size: 25
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/gamesdb
+    user: postgres
+    password: mysecretpassword
 
 server:
   port: 8004

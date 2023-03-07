@@ -20,7 +20,14 @@
  */
 package it.consolemania.platforms
 
+import com.jcabi.urn.URN
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import java.util.UUID
 
-interface PlatformsRepository : CoroutineCrudRepository<Platform, UUID>
+interface PlatformsRepository : CoroutineCrudRepository<Platform, UUID> {
+    suspend fun findFirstByName(name: String): Platform?
+
+    suspend fun existsByPlatformUrn(platformURN: URN): Boolean
+
+    suspend fun findFirstByPlatformUrn(platformURN: URN): Platform?
+}

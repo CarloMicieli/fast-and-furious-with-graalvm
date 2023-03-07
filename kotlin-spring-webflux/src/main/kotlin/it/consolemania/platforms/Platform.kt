@@ -41,13 +41,13 @@ data class Platform(
     val generation: Int,
     val type: String,
     @Embedded(onEmpty = OnEmpty.USE_NULL) val release: Release,
-    val discontinuedYear: Int,
+    val discontinuedYear: Int?,
     val discontinued: Boolean,
     val introductoryPrice: BigDecimal,
     val unitsSold: Int,
     val media: Media,
     @Embedded(onEmpty = OnEmpty.USE_NULL) val techSpecs: TechSpecs,
-    @CreatedDate val createdDate: Instant,
+    @CreatedDate val createdDate: Instant?,
     @LastModifiedDate val lastModifiedDate: Instant?,
-    @Version val version: Int
+    @Version val version: Int?
 )
