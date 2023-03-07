@@ -37,4 +37,5 @@ endpoints:
     path: /
 logger:
   levels:
-    root: INFO
+    ROOT: INFO
+    it.consolemania: INFO

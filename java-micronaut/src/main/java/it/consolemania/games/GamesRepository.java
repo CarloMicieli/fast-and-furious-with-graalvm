@@ -37,4 +37,6 @@ public interface GamesRepository extends ReactorCrudRepository<Game, UUID> {
     @NotNull Mono<Long> deleteByGameUrn(@NotNull URN gameUrn);
 
     @NotNull Flux<Game> findByPlatformId(@NotNull UUID platformId);
+
+    @NotNull Mono<Boolean> existsByGameUrn(@NotNull URN gameUrn);
 }

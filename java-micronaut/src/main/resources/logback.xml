@@ -12,4 +12,10 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
+
+    <logger name="io.micronaut" level="INFO"/>
+    <logger name="org.hibernate.validator" level="INFO"/>
+    <logger name="io.micronaut.http" level="DEBUG"/>
+    <logger name="javax.validation" level="DEBUG"/>
+
 </configuration>

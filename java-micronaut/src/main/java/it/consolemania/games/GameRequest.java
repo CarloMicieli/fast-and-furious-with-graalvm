@@ -20,6 +20,7 @@
  */
 package it.consolemania.games;
 
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import io.soabase.recordbuilder.core.RecordBuilder;
@@ -39,6 +40,6 @@ public record GameRequest(
         @Size(max = 250) String series,
         @NotBlank @Size(max = 250) String developer,
         @NotBlank @Size(max = 250) String publisher,
-        @Size(max = 2500) String plot,
+        @Nullable @Size(max = 2500) String plot,
         Rating rating,
         Year year) {}
