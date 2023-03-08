@@ -23,5 +23,6 @@ package it.consolemania.platforms;
 public enum Media {
     CD_ROM,
     HU_CARD,
+    GAME_CUBE_GAME_DISC,
     ROM_CARTRIDGE
 }

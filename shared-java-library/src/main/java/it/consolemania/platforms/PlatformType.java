@@ -22,5 +22,7 @@ package it.consolemania.platforms;
 
 public enum PlatformType {
     ARCADE_SYSTEM_BOARD,
-    HOME_VIDEO_GAME_CONSOLE
+    HANDHELD_GAME_CONSOLE,
+    HOME_VIDEO_GAME_CONSOLE,
+    VIDEO_GAME_CONSOLE_PERIPHERAL
 }
