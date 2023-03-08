@@ -23,6 +23,7 @@ package it.consolemania.games;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import com.jcabi.urn.URN;
+import it.consolemania.ResourceMetadata;
 import java.time.Year;
 import java.util.List;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -40,7 +41,7 @@ public final class GameModel extends RepresentationModel<GameModel> {
     private final Rating rating;
     private final String plot;
     private final Year year;
-    private final Integer version;
+    private final ResourceMetadata metadata;
 
     public GameModel(
             URN gameUrn,
@@ -53,7 +54,7 @@ public final class GameModel extends RepresentationModel<GameModel> {
             String plot,
             Rating rating,
             Year year,
-            Integer version) {
+            ResourceMetadata metadata) {
         super(linkTo(GamesController.class).slash(gameUrn).withRel(IanaLinkRelations.SELF));
 
         this.gameUrn = gameUrn;
@@ -66,7 +67,7 @@ public final class GameModel extends RepresentationModel<GameModel> {
         this.rating = rating;
         this.plot = plot;
         this.year = year;
-        this.version = version;
+        this.metadata = metadata;
     }
 
     public URN getGameUrn() {
@@ -109,11 +110,12 @@ public final class GameModel extends RepresentationModel<GameModel> {
         return year;
     }
 
-    public Integer getVersion() {
-        return version;
+    public ResourceMetadata getMetadata() {
+        return metadata;
     }
 
     public static GameModel of(Game game) {
+        var metadata = new ResourceMetadata(game.createdDate(), game.lastModifiedDate(), game.version());
         return new GameModel(
                 game.gameUrn(),
                 game.title(),
@@ -125,6 +127,6 @@ public final class GameModel extends RepresentationModel<GameModel> {
                 game.plot(),
                 game.rating(),
                 Year.of(game.year()),
-                game.version());
+                metadata);
     }
 }

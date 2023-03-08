@@ -27,12 +27,13 @@ import java.math.BigDecimal;
 import java.time.Year;
 import java.util.Optional;
 import java.util.UUID;
+
+import it.consolemania.ResourceMetadata;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.RepresentationModel;
 
 public final class PlatformModel extends RepresentationModel<PlatformModel> {
 
-    private final UUID platformId;
     private final URN platformUrn;
     private final String name;
     private final String manufacturer;
@@ -45,7 +46,7 @@ public final class PlatformModel extends RepresentationModel<PlatformModel> {
     private final Integer unitsSold;
     private final Media media;
     private final TechSpecs techSpecs;
-    private final Integer version;
+    private final ResourceMetadata metadata;
 
     private PlatformModel(
             UUID platformId,
@@ -61,10 +62,9 @@ public final class PlatformModel extends RepresentationModel<PlatformModel> {
             Integer unitsSold,
             Media media,
             TechSpecs techSpecs,
-            Integer version) {
+            ResourceMetadata metadata) {
         super(linkTo(PlatformsController.class).slash(platformUrn).withRel(IanaLinkRelations.SELF));
 
-        this.platformId = platformId;
         this.platformUrn = platformUrn;
         this.name = name;
         this.manufacturer = manufacturer;
@@ -77,11 +77,7 @@ public final class PlatformModel extends RepresentationModel<PlatformModel> {
         this.unitsSold = unitsSold;
         this.media = media;
         this.techSpecs = techSpecs;
-        this.version = version;
-    }
-
-    public UUID getPlatformId() {
-        return platformId;
+        this.metadata = metadata;
     }
 
     public URN getPlatformUrn() {
@@ -132,13 +128,14 @@ public final class PlatformModel extends RepresentationModel<PlatformModel> {
         return techSpecs;
     }
 
-    public Integer getVersion() {
-        return version;
+    public ResourceMetadata getMetadata() {
+        return metadata;
     }
 
     public static PlatformModel of(Platform platform) {
         var discountinuedYear =
                 Optional.ofNullable(platform.discontinuedYear()).map(Year::of).orElse(null);
+        var metadata = new ResourceMetadata(platform.createdDate(), platform.lastModifiedDate(), platform.version());
 
         return new PlatformModel(
                 platform.platformId(),
@@ -154,6 +151,6 @@ public final class PlatformModel extends RepresentationModel<PlatformModel> {
                 platform.unitsSold(),
                 platform.media(),
                 platform.techSpecs(),
-                platform.version());
+                metadata);
     }
 }

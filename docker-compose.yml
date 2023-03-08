@@ -11,12 +11,12 @@ services:
       - 8001:8001
     environment:
       - JAVA_TOOL_OPTIONS=-Xss512k -Xmx256M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M
-      - MICRONAUT_DB_HOST=postgres
-      - MICRONAUT_DB_PORT=5432
-      - MICRONAUT_DB_NAME=gamesdb
-      - MICRONAUT_DB_USERNAME=postgres
-      - MICRONAUT_DB_PASSWORD=mysecretpassword
-      - MICRONAUT_DB_MIGRATIONS_ENABLED=false
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=gamesdb
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=mysecretpassword
+      - RUN_DB_MIGRATIONS=false
     deploy:
       resources:
         limits:

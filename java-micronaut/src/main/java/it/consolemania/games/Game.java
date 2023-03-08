@@ -21,6 +21,7 @@
 package it.consolemania.games;
 
 import com.jcabi.urn.URN;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.annotation.DateCreated;
 import io.micronaut.data.annotation.DateUpdated;
 import io.micronaut.data.annotation.Id;
@@ -44,10 +45,10 @@ public record Game(
         String title,
         @TypeDef(type = DataType.STRING_ARRAY) List<Genre> genres,
         @TypeDef(type = DataType.STRING_ARRAY) List<Mode> modes,
-        String series,
+        @Nullable String series,
         String developer,
         String publisher,
-        String plot,
+        @Nullable String plot,
         Rating rating,
         Integer year,
         @DateCreated Instant createdDate,

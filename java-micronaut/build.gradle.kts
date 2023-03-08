@@ -9,6 +9,7 @@ plugins {
 dependencies {
     implementation(project(":shared-java-library"))
     implementation("org.jetbrains:annotations:23.0.0")
+    annotationProcessor("io.micronaut:micronaut-graal")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
@@ -24,9 +25,10 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api")
     implementation("jakarta.persistence:jakarta.persistence-api:2.2.3")
     runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.slf4j:log4j-over-slf4j")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
-    implementation("io.r2dbc:r2dbc-pool")
+    runtimeOnly("io.r2dbc:r2dbc-pool")
     testImplementation("io.micronaut.test:micronaut-test-rest-assured")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.mockito:mockito-core")
@@ -55,7 +57,7 @@ micronaut {
 configurations.all {
     resolutionStrategy.dependencySubstitution {
         substitute(module("io.micronaut:micronaut-jackson-databind"))
-            .using(module("io.micronaut.serde:micronaut-serde-jackson:1.5.0"))
+            .using(module("io.micronaut.serde:micronaut-serde-jackson:1.5.2"))
     }
 }
 

@@ -3,7 +3,7 @@ POST http://{{host}}:{{port}}/platforms
 Content-Type: application/json
 
 {
-  "name": "Neo Geo MVS",
+  "name": "Neo Geo AES",
   "manufacturer":  "SNK",
   "generation": 4,
   "type": "HOME_VIDEO_GAME_CONSOLE",

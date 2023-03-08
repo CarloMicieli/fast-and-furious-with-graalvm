@@ -40,11 +40,13 @@ public record PlatformModel(
         BigDecimal introductoryPrice,
         Integer unitsSold,
         Media media,
-        TechSpecs techSpecs) {
+        TechSpecs techSpecs,
+        PlatformMetadata metadata) {
 
     public static PlatformModel of(Platform platform) {
         var discountinuedYear =
                 Optional.ofNullable(platform.discontinuedYear()).map(Year::of).orElse(null);
+        var metadata = new PlatformMetadata(platform.createdDate(), platform.lastModifiedDate(), platform.version());
 
         return new PlatformModel(
                 platform.platformUrn(),
@@ -58,6 +60,7 @@ public record PlatformModel(
                 platform.introductoryPrice(),
                 platform.unitsSold(),
                 platform.media(),
-                platform.techSpecs());
+                platform.techSpecs(),
+                metadata);
     }
 }

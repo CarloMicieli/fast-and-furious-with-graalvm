@@ -12,6 +12,7 @@ Content-Type: application/json
   "series": "Fatal fury",
   "developer": "SNK",
   "publisher": "SNK",
+  "plot": "The game plot goes here",
   "rating": "ESRB_TEEN",
   "year": 1994
 }
