@@ -23,12 +23,11 @@ package it.consolemania.platforms;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import com.jcabi.urn.URN;
+import it.consolemania.ResourceMetadata;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.Optional;
 import java.util.UUID;
-
-import it.consolemania.ResourceMetadata;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.RepresentationModel;
 

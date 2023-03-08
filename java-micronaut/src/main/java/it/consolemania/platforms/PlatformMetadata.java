@@ -23,11 +23,10 @@ package it.consolemania.platforms;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.serde.config.naming.SnakeCaseStrategy;
-
 import java.time.Instant;
 
 @Serdeable(naming = SnakeCaseStrategy.class)
 public record PlatformMetadata(
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Instant createdDate,
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Instant lastModifiedDate,
-    Integer version) {}
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Instant createdDate,
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC") Instant lastModifiedDate,
+        Integer version) {}
