@@ -84,10 +84,11 @@ java {
 graalvmNative {
     testSupport.set(false)
 
-    // Use the newest version of the graalvm-reachability-metadata metadata
+    // Set the version of the graalvm reachability metadata from
+    // https://github.com/oracle/graalvm-reachability-metadata
     metadataRepository {
         enabled.set(true)
-        version.set("0.2.5")
+        version.set("0.2.6")
     }
 }
 
