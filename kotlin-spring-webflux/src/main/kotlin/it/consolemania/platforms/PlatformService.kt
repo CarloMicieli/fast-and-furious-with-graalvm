@@ -52,6 +52,7 @@ class PlatformService(private val uuidSource: UuidSource, private val platformsR
             platform.manufacturer,
             platform.generation,
             platform.type.name,
+            platform.year.value,
             platform.release.europe,
             platform.release.japan,
             platform.release.northAmerica,

@@ -25,6 +25,7 @@ import static org.hamcrest.core.Is.is;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,7 @@ class PlatformsApiTests {
                           "manufacturer":  "SNK",
                           "generation": 4,
                           "type": "HOME_VIDEO_GAME_CONSOLE",
+                          "year": 1990,
                           "release": {
                             "japan": "1990-04-26",
                             "north_america": "1990-08-22",
@@ -64,7 +66,7 @@ class PlatformsApiTests {
                           "discontinued": "true",
                           "introductory_price": 649,
                           "units_sold": 1000000,
-                          "media": "ROM_CARTRIDGE",
+                          "media": ["ROM_CARTRIDGE"],
                           "tech_specs": {
                             "cpu": "Motorola 68000 @ 12MHz, Zilog Z80A @ 4MHz",
                             "memory": "64KB RAM, 84KB VRAM, 2KB Sound Memory",
@@ -88,14 +90,15 @@ class PlatformsApiTests {
                         """
                         {
                           "name": "Neo Geo AES",
-                          "manufacturer":  "SNK",
+                          "manufacturer": "SNK",
                           "generation": 4,
                           "type": "HOME_VIDEO_GAME_CONSOLE",
+                          "year": 1990,
                           "discontinued_year": 1997,
                           "discontinued": "true",
                           "introductory_price": 649,
                           "units_sold": 1000000,
-                          "media": "ROM_CARTRIDGE"
+                          "media": ["ROM_CARTRIDGE"]
                         }
                         """)
                 .when()
@@ -119,6 +122,7 @@ class PlatformsApiTests {
                           "manufacturer":  "SNK",
                           "generation": 4,
                           "type": "HOME_VIDEO_GAME_CONSOLE",
+                          "year": 1990,
                           "release": {
                             "japan": "1990-04-26",
                             "north_america": "1990-08-22",
@@ -128,7 +132,7 @@ class PlatformsApiTests {
                           "discontinued": "true",
                           "introductory_price": 649,
                           "units_sold": 1000000,
-                          "media": "ROM_CARTRIDGE",
+                          "media": ["ROM_CARTRIDGE"],
                           "tech_specs": {
                             "cpu": "Motorola 68000 @ 12MHz, Zilog Z80A @ 4MHz",
                             "memory": "64KB RAM, 84KB VRAM, 2KB Sound Memory",
@@ -161,7 +165,7 @@ class PlatformsApiTests {
                 .body("discontinued", is(true))
                 .body("introductory_price", is(649))
                 .body("units_sold", is(100000))
-                .body("media", is("ROM_CARTRIDGE"));
+                .body("media", is(List.of("ROM_CARTRIDGE")));
     }
 
     @Test

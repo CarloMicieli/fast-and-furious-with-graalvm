@@ -71,6 +71,7 @@ public class PlatformsService {
                 platform.manufacturer(),
                 platform.generation(),
                 platform.type().name(),
+                platform.year().getValue(),
                 platform.release(),
                 discontinuedYear,
                 platform.discontinued(),

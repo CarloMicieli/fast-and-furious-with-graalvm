@@ -25,6 +25,7 @@ import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.List;
 import java.util.Optional;
 
 @Serdeable(naming = SnakeCaseStrategy.class)
@@ -34,12 +35,13 @@ public record PlatformModel(
         String manufacturer,
         Integer generation,
         PlatformType type,
+        Year year,
         Release release,
         Year discontinuedYear,
         boolean discontinued,
         BigDecimal introductoryPrice,
         Integer unitsSold,
-        Media media,
+        List<Media> media,
         TechSpecs techSpecs,
         PlatformMetadata metadata) {
 
@@ -54,6 +56,7 @@ public record PlatformModel(
                 platform.manufacturer(),
                 platform.generation(),
                 PlatformType.valueOf(platform.type()),
+                Year.of(platform.year()),
                 platform.release(),
                 discountinuedYear,
                 platform.discontinued(),

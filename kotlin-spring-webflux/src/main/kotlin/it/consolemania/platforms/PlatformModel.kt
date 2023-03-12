@@ -33,12 +33,13 @@ data class PlatformModel(
     val manufacturer: String,
     val generation: Int,
     val type: String,
+    val year: Year,
     val release: Release,
     val discontinuedYear: Year?,
     val discontinued: Boolean,
     val introductoryPrice: BigDecimal,
     val unitsSold: Int,
-    val media: Media,
+    val media: List<Media>,
     val techSpecs: TechSpecs,
     val metadata: PlatformMetadata
 ) : RepresentationModel<PlatformModel>(platformLinks(platformUrn)) {
@@ -50,6 +51,7 @@ data class PlatformModel(
             manufacturer = platform.manufacturer,
             generation = platform.generation,
             type = platform.type,
+            year = Year.of(platform.year),
             release = Release(
                 japan = platform.releaseJp,
                 europe = platform.releaseEu,

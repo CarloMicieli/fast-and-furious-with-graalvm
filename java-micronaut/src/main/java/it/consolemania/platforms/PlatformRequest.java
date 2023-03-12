@@ -25,6 +25,7 @@ import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import io.soabase.recordbuilder.core.RecordBuilder;
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -37,10 +38,11 @@ public record PlatformRequest(
         @NotBlank @Size(max = 100) String manufacturer,
         @Positive Integer generation,
         @NotNull PlatformType type,
+        @NotNull Year year,
         Release release,
         Year discontinuedYear,
         boolean discontinued,
         @Positive BigDecimal introductoryPrice,
         @Positive Integer unitsSold,
-        @NotNull Media media,
+        @NotNull List<Media> media,
         TechSpecs techSpecs) {}

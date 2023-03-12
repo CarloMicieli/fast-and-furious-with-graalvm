@@ -28,6 +28,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.List;
 
 @RecordBuilder
 public record PlatformRequest(
@@ -35,11 +36,12 @@ public record PlatformRequest(
         @NotBlank @Size(max = 100) String manufacturer,
         @Positive Integer generation,
         @NotNull PlatformType type,
+        @NotNull Year year,
         Release release,
         @JsonProperty("discontinued_year") Year discontinuedYear,
         boolean discontinued,
         @Positive @JsonProperty("introductory_price") BigDecimal introductoryPrice,
         @Positive @JsonProperty("units_sold") Integer unitsSold,
-        @NotNull Media media,
+        @NotNull List<Media> media,
         @JsonProperty("tech_specs") TechSpecs techSpecs)
         implements PlatformRequestBuilder.With {}

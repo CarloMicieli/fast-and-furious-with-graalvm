@@ -37,7 +37,7 @@ docker run  -it --rm --name games-db-postgres \
     -e POSTGRES_PASSWORD=mysecretpassword \
     -e POSTGRES_DB=gamesdb \
     -p 5432:5432 \
-    postgres:15.1-alpine
+    postgres:14.7-alpine
 ```
 
 ### Build the docker images

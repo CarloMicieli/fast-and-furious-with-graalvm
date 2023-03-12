@@ -36,11 +36,12 @@ data class PlatformRequest(
     val manufacturer: String,
     @Positive val generation: Int,
     @NotNull val type: PlatformType,
+    @NotNull val year: Year,
     val release: Release,
     val discontinuedYear: Year?,
     val discontinued: Boolean,
     @Positive val introductoryPrice: BigDecimal,
     @Positive val unitsSold: Int,
-    @NotNull val media: Media,
+    @NotNull val media: List<Media>,
     val techSpecs: TechSpecs
 )

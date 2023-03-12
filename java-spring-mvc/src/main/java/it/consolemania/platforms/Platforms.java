@@ -23,6 +23,7 @@ package it.consolemania.platforms;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.List;
 
 public final class Platforms {
 
@@ -31,7 +32,8 @@ public final class Platforms {
             .generation(4)
             .manufacturer("SNK Corporation")
             .type(PlatformType.HOME_VIDEO_GAME_CONSOLE)
-            .media(Media.ROM_CARTRIDGE)
+            .media(List.of(Media.ROM_CARTRIDGE))
+            .year(Year.of(1990))
             .release(ReleaseBuilder.builder()
                     .japan(LocalDate.of(1990, 4, 26))
                     .northAmerica(LocalDate.of(1990, 8, 22))

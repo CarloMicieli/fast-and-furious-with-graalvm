@@ -33,8 +33,10 @@ import io.micronaut.serde.config.naming.SnakeCaseStrategy;
 import it.consolemania.config.URNAttributeConverter;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Embedded;
+import javax.validation.constraints.NotNull;
 
 @Serdeable(naming = SnakeCaseStrategy.class)
 @MappedEntity("platforms")
@@ -45,12 +47,13 @@ public record Platform(
         String manufacturer,
         Integer generation,
         String type,
+        @NotNull Integer year,
         @Embedded Release release,
         Integer discontinuedYear,
         boolean discontinued,
         BigDecimal introductoryPrice,
         Integer unitsSold,
-        Media media,
+        @TypeDef(type = DataType.STRING_ARRAY) List<Media> media,
         @Embedded TechSpecs techSpecs,
         @DateCreated Instant createdDate,
         @DateUpdated Instant lastModifiedDate,

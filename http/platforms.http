@@ -3,26 +3,29 @@ POST http://{{host}}:{{port}}/platforms
 Content-Type: application/json
 
 {
-  "name": "Neo Geo AES",
-  "manufacturer":  "SNK",
-  "generation": 4,
-  "type": "HOME_VIDEO_GAME_CONSOLE",
-  "release": {
-    "japan": "1990-04-26",
-    "north_america": "1990-08-22",
-    "europe": "1991-01-01"
-  },
-  "discontinued_year": 1997,
-  "discontinued": true,
-  "introductory_price": 649,
-  "units_sold": 1000000,
-  "media": "ROM_CARTRIDGE",
-  "tech_specs": {
-    "cpu": "Motorola 68000 @ 12MHz, Zilog Z80A @ 4MHz",
-    "memory": "64KB RAM, 84KB VRAM, 2KB Sound Memory",
-    "display": "320×224 resolution, 4096 on-screen colors out of a palette of 65536",
-    "sound": "Yamaha YM2610"
-  }
+    "name": "Neo Geo AES",
+    "manufacturer": "SNK",
+    "generation": 4,
+    "type": "HOME_VIDEO_GAME_CONSOLE",
+    "year": 1990,
+    "release": {
+        "japan": "1990-04-26",
+        "north_america": "1990-08-22",
+        "europe": "1991-01-01"
+    },
+    "discontinued_year": 1997,
+    "discontinued": true,
+    "introductory_price": 649,
+    "units_sold": 1000000,
+    "media": [
+        "ROM_CARTRIDGE"
+    ],
+    "tech_specs": {
+        "cpu": "Motorola 68000 @ 12MHz, Zilog Z80A @ 4MHz",
+        "memory": "64KB RAM, 84KB VRAM, 2KB Sound Memory",
+        "display": "320×224 resolution, 4096 on-screen colors out of a palette of 65536",
+        "sound": "Yamaha YM2610"
+    }
 }
 
 ###
@@ -47,24 +50,27 @@ PUT http://{{host}}:{{port}}/platforms/urn:platform:neo-geo-aes
 Content-Type: application/json
 
 {
-  "name": "Neo Geo AES",
-  "manufacturer":  "SNK",
-  "generation": 4,
-  "type": "HOME_VIDEO_GAME_CONSOLE",
-  "release": {
-    "japan": "1990-04-26",
-    "north_america": "1990-08-22",
-    "europe": "1991-01-01"
-  },
-  "discontinued_year": 1997,
-  "discontinued": true,
-  "introductory_price": 649,
-  "units_sold": 1000000,
-  "media": "ROM_CARTRIDGE",
-  "tech_specs": {
-    "cpu": "Motorola 68000 @ 12MHz, Zilog Z80A @ 4MHz",
-    "memory": "64KB RAM, 84KB VRAM, 2KB Sound Memory",
-    "display": "320×224 resolution, 4096 on-screen colors out of a palette of 65536",
-    "sound": "Yamaha YM2610"
-  }
+    "name": "Neo Geo AES",
+    "manufacturer": "SNK",
+    "generation": 4,
+    "type": "HOME_VIDEO_GAME_CONSOLE",
+    "year": 1990,
+    "release": {
+        "japan": "1990-04-26",
+        "north_america": "1990-08-22",
+        "europe": "1991-01-01"
+    },
+    "discontinued_year": 1997,
+    "discontinued": true,
+    "introductory_price": 649,
+    "units_sold": 1000000,
+    "media": [
+        "ROM_CARTRIDGE"
+    ],
+    "tech_specs": {
+        "cpu": "Motorola 68000 @ 12MHz, Zilog Z80A @ 4MHz",
+        "memory": "64KB RAM, 84KB VRAM, 2KB Sound Memory",
+        "display": "320×224 resolution, 4096 on-screen colors out of a palette of 65536",
+        "sound": "Yamaha YM2610"
+    }
 }
