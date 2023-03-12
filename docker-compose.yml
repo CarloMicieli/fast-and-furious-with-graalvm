@@ -56,7 +56,7 @@ services:
       - backend
 
   spring-mvc-native:
-    image: ghcr.io/carlomicieli/consolemania-spring-mvc:latest
+    image: ghcr.io/carlomicieli/consolemania-spring-mvc-native:latest
     depends_on:
       postgres:
         condition: service_healthy
