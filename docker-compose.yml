@@ -90,6 +90,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: gamesdb
       POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - .docker/init-db:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ CMD-SHELL, 'pg_isready -U postgres' ]
       interval: 10s
