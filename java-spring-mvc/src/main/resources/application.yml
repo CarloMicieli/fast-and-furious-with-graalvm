@@ -14,7 +14,7 @@ spring:
     enabled: ${RUN_DB_MIGRATIONS:false}
 
 server:
-  port: 8002
+  port: 8004
   tomcat:
     connection-timeout: 2s
     keep-alive-timeout: 15s
@@ -32,7 +32,7 @@ logging:
 
 management:
   server:
-    port: 8003
+    port: 8005
   endpoints:
     enabled-by-default: false
     web:

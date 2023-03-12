@@ -18,7 +18,7 @@ spring:
     password: ${DB_PASSWORD:mysecretpassword}
 
 server:
-  port: 8004
+  port: 8006
   shutdown: graceful
 
 logging:
@@ -30,7 +30,7 @@ logging:
 
 management:
   server:
-    port: 8005
+    port: 8007
   endpoints:
     enabled-by-default: false
     web:

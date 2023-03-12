@@ -1,0 +1,42 @@
+micronaut:
+  application:
+    name: micronaut-r2dbc
+  server:
+    port: 8002
+  serde:
+    date-format: yyyy-MM-dd
+    write-dates-as-timestamps: false
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:gamesdb}
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:mysecretpassword}
+      db-type: postgres
+      dialect: POSTGRES
+      options:
+        protocol: postgres
+        initialSize: 48
+        maxSize: 48
+netty:
+  default:
+    allocator:
+      max-order: 3
+flyway:
+  datasources:
+    default:
+      enabled: ${RUN_DB_MIGRATIONS:false}
+      url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:gamesdb}
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:mysecretpassword}
+      driver-class-name: org.postgresql.Driver
+      db-type: postgres
+      dialect: POSTGRES
+endpoints:
+  all:
+    port: 8003
+    path: /
+logger:
+  levels:
+    ROOT: INFO
+    it.consolemania: INFO

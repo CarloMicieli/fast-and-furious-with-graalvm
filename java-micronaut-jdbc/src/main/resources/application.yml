@@ -1,0 +1,41 @@
+micronaut:
+  application:
+    name: micronaut-jdbc
+  server:
+    port: 8000
+  serde:
+    date-format: yyyy-MM-dd
+    write-dates-as-timestamps: false
+  executors:
+    io:
+      type: fixed
+      nThreads: 50
+
+datasources:
+  default:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:gamesdb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:mysecretpassword}
+    db-type: postgres
+    dialect: POSTGRES
+    driver-class-name: org.postgresql.Driver
+
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+flyway:
+  datasources:
+    default:
+      enabled: ${RUN_DB_MIGRATIONS:false}
+
+endpoints:
+  all:
+    port: 8001
+    path: /
+
+logger:
+  levels:
+    ROOT: INFO
+    it.consolemania: INFO

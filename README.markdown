@@ -3,8 +3,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CarloMicieli/fast-and-furious-with-graalvm)
 
-
-[![Micronaut CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-ci.yaml)
+[![Micronaut JDBC CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-jdbc-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-jdbc-ci.yaml)
+[![Micronaut R2DBC CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-r2dbc-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-micronaut-r2dbc-ci.yaml)
 [![Spring MVC CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-spring-mvc-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/java-spring-mvc-ci.yaml)
 [![Spring WebFlux CI](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/kotlin-spring-webflux-ci.yaml/badge.svg)](https://github.com/CarloMicieli/fast-and-furious-with-graalvm/actions/workflows/kotlin-spring-webflux-ci.yaml)
 
@@ -23,6 +23,7 @@ A playground repository to experiment with the GraalVM native compiler.
 ```
 
 ```bash
+  sudo apt-get install zlib1g-dev
   sdk install java 22.3.r17-grl
   sdk use java 22.3.r17-grl
 ```
@@ -44,6 +45,7 @@ docker run  -it --rm --name games-db-postgres \
 
 ```bash
   ./gradlew java-micronaut:dockerBuildNative
+  ./gradlew java-micronaut:dockerBuild
   ./gradlew kotlin-spring-webflux:bootBuildImage
   ./gradlew java-spring-mvc:bootBuildImage
 ```

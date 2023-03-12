@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  micronaut:
-    image: ghcr.io/carlomicieli/consolemania-micronaut:latest
+  micronaut-jdbc:
+    image: ghcr.io/carlomicieli/consolemania-micronaut-jdbc-native:latest
     depends_on:
       postgres:
         condition: service_healthy
@@ -28,8 +28,8 @@ services:
     networks:
       - backend
 
-  spring-mvc-native:
-    image: ghcr.io/carlomicieli/consolemania-spring-mvc:latest
+  micronaut-r2dbc:
+    image: ghcr.io/carlomicieli/consolemania-micronaut-r2dbc:latest
     depends_on:
       postgres:
         condition: service_healthy
@@ -55,14 +55,41 @@ services:
     networks:
       - backend
 
-  spring-webflux:
-    image: ghcr.io/carlomicieli/consolemania-spring-webflux:latest
+  spring-mvc-native:
+    image: ghcr.io/carlomicieli/consolemania-spring-mvc:latest
     depends_on:
       postgres:
         condition: service_healthy
     ports:
       - 8004:8004
       - 8005:8005
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xss512k -Xmx256M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=gamesdb
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=mysecretpassword
+      - RUN_DB_MIGRATIONS=false
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.50'
+          memory: 512M
+    networks:
+      - backend
+
+  spring-webflux:
+    image: ghcr.io/carlomicieli/consolemania-spring-webflux:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8006:8006
+      - 8007:8007
     environment:
       - JAVA_TOOL_OPTIONS=-Xss512k -Xmx256M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M
       - DB_HOST=postgres
