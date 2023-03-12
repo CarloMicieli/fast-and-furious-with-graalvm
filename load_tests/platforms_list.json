@@ -1,0 +1,10 @@
+{
+    "platforms": [
+        { "platform_urn": "urn:platform:atari-jaguar-cd" },
+        { "platform_urn": "urn:platform:nintendo-gamecube" },
+        { "platform_urn": "urn:platform:sega-dreamcast" },
+        { "platform_urn": "urn:platform:snk-neo-geo-aes" },
+        { "platform_urn": "urn:platform:snk-neo-geo-cd" },
+        { "platform_urn": "urn:platform:snk-neo-geo-mvs" }
+    ]
+}

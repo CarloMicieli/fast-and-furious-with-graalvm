@@ -15,7 +15,7 @@
 
     <logger name="io.micronaut" level="INFO"/>
     <logger name="org.hibernate.validator" level="INFO"/>
-    <logger name="io.micronaut.http" level="DEBUG"/>
-    <logger name="javax.validation" level="DEBUG"/>
+    <logger name="io.micronaut.http" level="INFO"/>
+    <logger name="javax.validation" level="INFO"/>
 
 </configuration>
