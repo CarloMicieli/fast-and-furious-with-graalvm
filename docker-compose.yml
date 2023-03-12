@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  micronaut-jdbc:
+  micronaut-jdbc-native:
     image: ghcr.io/carlomicieli/consolemania-micronaut-jdbc-native:latest
     depends_on:
       postgres:
