@@ -20,6 +20,7 @@
  */
 package it.consolemania.platforms;
 
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.annotation.Embeddable;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
@@ -31,7 +32,7 @@ import javax.validation.constraints.Size;
 @Serdeable(naming = SnakeCaseStrategy.class)
 @Embeddable
 public record TechSpecs(
-        @Size(max = 1000) @MappedProperty("cpu") String cpu,
-        @Size(max = 1000) @MappedProperty("memory") String memory,
-        @Size(max = 1000) @MappedProperty("display") String display,
-        @Size(max = 1000) @MappedProperty("sound") String sound) {}
+    @Nullable @Size(max = 1000) @MappedProperty("cpu") String cpu,
+    @Nullable @Size(max = 1000) @MappedProperty("memory") String memory,
+    @Nullable @Size(max = 1000) @MappedProperty("display") String display,
+    @Nullable @Size(max = 1000) @MappedProperty("sound") String sound) {}

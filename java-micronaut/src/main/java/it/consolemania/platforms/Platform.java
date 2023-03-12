@@ -21,6 +21,7 @@
 package it.consolemania.platforms;
 
 import com.jcabi.urn.URN;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.annotation.DateCreated;
 import io.micronaut.data.annotation.DateUpdated;
 import io.micronaut.data.annotation.Id;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Serdeable(naming = SnakeCaseStrategy.class)
 @MappedEntity("platforms")
@@ -48,13 +50,13 @@ public record Platform(
         Integer generation,
         String type,
         @NotNull Integer year,
-        @Embedded Release release,
+        @Nullable @Embedded Release release,
         Integer discontinuedYear,
         boolean discontinued,
-        BigDecimal introductoryPrice,
-        Integer unitsSold,
+        @Nullable BigDecimal introductoryPrice,
+        @Nullable Integer unitsSold,
         @TypeDef(type = DataType.STRING_ARRAY) List<Media> media,
-        @Embedded TechSpecs techSpecs,
+        @Nullable @Embedded TechSpecs techSpecs,
         @DateCreated Instant createdDate,
         @DateUpdated Instant lastModifiedDate,
         @Version Integer version) {}

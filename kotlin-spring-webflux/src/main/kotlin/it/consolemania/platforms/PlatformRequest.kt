@@ -40,8 +40,8 @@ data class PlatformRequest(
     val release: Release,
     val discontinuedYear: Year?,
     val discontinued: Boolean,
-    @Positive val introductoryPrice: BigDecimal,
-    @Positive val unitsSold: Int,
+    @Positive val introductoryPrice: BigDecimal?,
+    @Positive val unitsSold: Int?,
     @NotNull val media: List<Media>,
     val techSpecs: TechSpecs
 )

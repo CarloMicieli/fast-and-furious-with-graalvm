@@ -23,7 +23,7 @@ values ('c9d94ce1-d380-4afa-b637-fd8c3351c19f',
         '16-bit stereo sound, Stereo CDDA playback, 44.1 kHz sound sampling rate',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -50,7 +50,7 @@ values ('a6003187-0363-4484-86fe-ed3f3e28e6e0',
         'Via Television Interface Adaptor',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -77,7 +77,7 @@ values ('3a96e4b4-b65c-4de0-a325-e98564f57493',
         'Via Television Interface Adaptor',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -104,7 +104,7 @@ values ('88aaea1d-faad-4f5b-830b-f091d23c6083',
         'TIA as used in the 2600 for video and sound. In 7800 mode it is only used for sound.',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -131,7 +131,7 @@ values ('64607640-3821-49a3-b3cd-e8f2554ca8eb',
         'CD-quality sound (16-bit stereo)',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -158,7 +158,7 @@ values ('63b25f4c-bbdc-4a1a-a733-5fdd25d6ab9e',
         NULL,
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -185,7 +185,7 @@ values ('cacbc983-6aa4-42c8-89d8-ff17cc4433c7',
         'HuC6280, PSG, 5 to 10 bit stereo PCM',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -212,7 +212,7 @@ values ('2c0776ca-bbb9-4c04-b3a3-da514aca9f21',
         '16-bit, 48 or 44.1 kHz stereo',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -239,7 +239,7 @@ values ('f0aa6823-622c-40c0-ace0-132e406f1344',
         '2 pulse wave generators, 1 PCM 4-bit wave sample (64 4-bit samples played in 1×64 bank or 2×32 bank) channel, 1 noise generator, and one audio input from the cartridge',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -266,7 +266,7 @@ values ('c749e46c-4f7a-46e3-a136-6b09c9d7228f',
         'Analog Stereo',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -293,7 +293,7 @@ values ('0b542aa9-e9c8-43d9-abde-d40e72b2a20b',
         'Analog Stereo',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -320,7 +320,7 @@ values ('087f22fb-166e-49b0-b2bf-96fdc5d06e15',
         'Nintendo S-SMP',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -347,7 +347,7 @@ values ('43aa1feb-cdf2-4a7c-a8f7-d41dfda4b2c9',
         NULL,
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -374,7 +374,7 @@ values ('84411542-8121-4142-b0c4-44091cb49e66',
         '67 MHz Yamaha AICA with 32-bit ARM7 RISC CPU core, 64 channels',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -401,7 +401,7 @@ values ('41c96fd7-2e84-462e-a612-887feafd7923',
         'Texas Instruments SN76489, Mono speaker, Headphone jack',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -428,7 +428,7 @@ values ('1d23a565-5738-471e-8628-b1cfe9b91612',
         'Yamaha VDP PSG (SN76489), Yamaha YM2413',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -455,7 +455,7 @@ values ('f3c85317-4b03-411e-8170-b9d161e91675',
         'Yamaha YM2612, Texas Instruments SN76489',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -482,7 +482,7 @@ values ('98059bf2-a240-4f79-a02a-8686a15a5b60',
         'Ricoh RF5C164',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -509,7 +509,7 @@ values ('a9588454-70ff-4e22-89c1-1e7275ffd0b5',
         'Yamaha YMF292',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -536,7 +536,7 @@ values ('ca491885-5b08-4c3b-beb0-ed158c982c5f',
         'Z80 & SN76489 compatible',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -563,7 +563,7 @@ values ('2f08afd1-af7e-4231-9555-f079a36f5667',
         'T6W28 (enhanced SN76489), 8-bit DACs',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -575,10 +575,10 @@ values ('0e310165-ffb5-456b-825c-5efece4a52f5',
         'SNK',
         4,
         'HOME_VIDEO_GAME_CONSOLE',
-        1993,
-        NULL,
-        NULL,
-        NULL,
+        1990,
+        '1991-01-01',
+        '1990-07-01',
+        '1990-07-01',
         2007,
         true,
         NULL,
@@ -590,7 +590,7 @@ values ('0e310165-ffb5-456b-825c-5efece4a52f5',
         'Yamaha YM2610',
         now(),
         now(),
-        1);
+        0);
 
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
@@ -618,7 +618,7 @@ values ('ff380835-bbc9-42bc-bd62-27349de29393',
         'Yamaha YM2610',
         now(),
         now(),
-        1);
+        0);
 
 insert into platforms (platform_id, platform_urn, name, manufacturer, generation, type,
                        year, release_eu, release_jp, release_na, discontinued_year, discontinued,
@@ -645,4 +645,4 @@ values ('335a4341-5a0f-4940-bc98-84ef9e3a8a1e',
         NULL,
         now(),
         now(),
-        1);
+        0);

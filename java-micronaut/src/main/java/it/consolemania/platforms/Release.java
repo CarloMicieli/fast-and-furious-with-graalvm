@@ -20,6 +20,7 @@
  */
 package it.consolemania.platforms;
 
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.annotation.Embeddable;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
@@ -31,6 +32,6 @@ import java.time.LocalDate;
 @RecordBuilder
 @Serdeable(naming = SnakeCaseStrategy.class)
 public record Release(
-        @MappedProperty("release_jp") LocalDate japan,
-        @MappedProperty("release_na") LocalDate northAmerica,
-        @MappedProperty("release_eu") LocalDate europe) {}
+    @Nullable @MappedProperty("release_jp") LocalDate japan,
+    @Nullable @MappedProperty("release_na") LocalDate northAmerica,
+    @Nullable @MappedProperty("release_eu") LocalDate europe) {}

@@ -37,8 +37,8 @@ data class PlatformModel(
     val release: Release,
     val discontinuedYear: Year?,
     val discontinued: Boolean,
-    val introductoryPrice: BigDecimal,
-    val unitsSold: Int,
+    val introductoryPrice: BigDecimal?,
+    val unitsSold: Int?,
     val media: List<Media>,
     val techSpecs: TechSpecs,
     val metadata: PlatformMetadata
