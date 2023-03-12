@@ -22,14 +22,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Print versions
-        run: |
-            echo "GRAALVM_HOME: $GRAALVM_HOME"
-            echo "JAVA_HOME: $JAVA_HOME"
-            java --version
-            gu --version
-            native-image --version
-
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
