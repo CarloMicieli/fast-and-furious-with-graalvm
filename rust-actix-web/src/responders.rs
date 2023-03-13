@@ -3,7 +3,7 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum ServerResponseError {
-    #[error("an error has occorrued")]
+    #[error("An error has occurred ({0})")]
     GenericError(#[from] anyhow::Error),
 }
 

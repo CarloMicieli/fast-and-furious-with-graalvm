@@ -1,3 +1,4 @@
+pub mod database;
 pub mod handlers;
 pub mod media;
 pub mod metadata;

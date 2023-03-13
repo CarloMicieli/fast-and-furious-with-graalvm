@@ -8,5 +8,7 @@ use strum::{Display, EnumString};
 #[sqlx(type_name = "VARCHAR")]
 pub enum PlatformType {
     ArcadeSystemBoard,
+    HandheldGameConsole,
     HomeVideoGameConsole,
+    VideoGameConsolePeripheral,
 }
