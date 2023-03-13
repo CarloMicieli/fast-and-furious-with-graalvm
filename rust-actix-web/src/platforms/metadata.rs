@@ -1,4 +1,5 @@
 use chrono::{DateTime, Utc};
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 pub struct PlatformMetadata {

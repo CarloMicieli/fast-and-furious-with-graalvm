@@ -1,0 +1,33 @@
+{
+  "db": "PostgreSQL",
+  "7a6b62e1b756ce41b310dd28be5916bb797eb09481e486ec6595d771b6efb633": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Int4",
+          "Date",
+          "Date",
+          "Date",
+          "Int4",
+          "Bool",
+          "Numeric",
+          "Numeric",
+          "VarcharArray",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar"
+        ]
+      }
+    },
+    "query": "\n        insert into platforms (\n            platform_id, platform_urn, name, manufacturer, generation, type,\n            year, release_eu, release_jp, release_na, discontinued_year, discontinued,\n            introductory_price, units_sold, media, cpu, memory,\n            display, sound, created_date, last_modified_date, version)\n        values (\n            $1,$2,$3,$4,$5,$6,\n            $7,$8,$9,$10,$11,$12,\n            $13,$14,$15,$16,$17,$18,$19,\n            now(),now(),0);"
+  }
+}
