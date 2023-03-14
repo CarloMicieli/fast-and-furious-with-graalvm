@@ -6,6 +6,7 @@ use strum::{Display, EnumString};
 #[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 #[strum(ascii_case_insensitive)]
 #[sqlx(type_name = "VARCHAR")]
+#[sqlx(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum PlatformType {
     ArcadeSystemBoard,
     HandheldGameConsole,

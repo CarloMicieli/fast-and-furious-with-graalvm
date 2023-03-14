@@ -14,6 +14,22 @@ use super::{
     tech_specs::TechSpecs,
 };
 
+pub async fn find_platform_id_by_name<'db>(
+    name: &str,
+    transaction: &mut Transaction<'db, Postgres>,
+) -> Result<Option<Uuid>, anyhow::Error> {
+    let result = sqlx::query_as!(
+        PlaformId,
+        r#"select platform_id from platforms where name = $1"#,
+        name
+    )
+    .fetch_optional(transaction)
+    .await
+    .context("A database failure was encountered while trying to read the platform id.")?;
+
+    Ok(result.map(|row| row.platform_id))
+}
+
 pub async fn find_all_platform<'db>(
     transaction: &mut Transaction<'db, Postgres>,
 ) -> Result<Vec<Platform>, anyhow::Error> {
@@ -107,9 +123,9 @@ pub async fn update_platform<'db>(
         &platform_urn.to_string(),
         &platform_update.name,
         &platform_update.manufacturer,
-        &platform_update.generation as &i8,
+        platform_update.generation as i32,
         &platform_update.platform_type as &PlatformType,
-        &platform_update.year as &i32,
+        platform_update.year as i32,
         platform_update.release.europe,
         platform_update.release.japan,
         platform_update.release.north_america,
@@ -163,9 +179,9 @@ pub async fn insert_platform<'db>(
         &platform_urn.to_string(),
         &new_platform.name,
         &new_platform.manufacturer,
-        &new_platform.generation as &i8,
+        new_platform.generation as i32,
         &new_platform.platform_type as &PlatformType,
-        &new_platform.year as &i32,
+        new_platform.year as i32,
         new_platform.release.europe,
         new_platform.release.japan,
         new_platform.release.north_america,
@@ -184,6 +200,11 @@ pub async fn insert_platform<'db>(
     .context("A database failure was encountered while trying to store a platform.")?;
 
     Ok(platform_urn)
+}
+
+#[derive(Debug)]
+struct PlaformId {
+    pub platform_id: Uuid,
 }
 
 #[derive(Debug)]

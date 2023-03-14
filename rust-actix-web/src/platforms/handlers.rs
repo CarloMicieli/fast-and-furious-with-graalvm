@@ -2,7 +2,10 @@ use super::{
     database::{find_all_platform, find_platform_by_urn, update_platform},
     platform_request::PlatformRequest,
 };
-use crate::{platforms::database::insert_platform, responders::ServerResponseError};
+use crate::{
+    games::database::find_all_games_by_platform, platforms::database::insert_platform,
+    responders::ServerResponseError,
+};
 use actix_web::{web, HttpResponse};
 use anyhow::Context;
 use sqlx::PgPool;
@@ -20,11 +23,36 @@ pub fn configure_platform_routes(cfg: &mut web::ServiceConfig) {
                     .route(web::get().to(get_all_platforms))
             )
             .service(
-                web::resource("/{platform}")
-                    .route(web::get().to(get_platform_by_urn))
-                    .route(web::put().to(put_platform))
+                web::scope("/{platform}")
+                    .service(
+                    web::resource("")
+                        .route(web::get().to(get_platform_by_urn))
+                        .route(web::put().to(put_platform)))
+                    .service(
+                        web::resource("/games")
+                        .route(web::get().to(get_all_games_by_platform))
+                    )
             )
     );
+}
+
+pub async fn get_all_games_by_platform(
+    platform_urn: web::Path<Urn>,
+    db_pool: web::Data<PgPool>,
+) -> Result<HttpResponse, ServerResponseError> {
+    let mut transaction = db_pool
+        .begin()
+        .await
+        .context("Unable to begin a database transaction")?;
+
+    let results = find_all_games_by_platform(&platform_urn, &mut transaction).await?;
+
+    transaction
+        .commit()
+        .await
+        .context("Unable to commit a database transaction")?;
+
+    Ok(HttpResponse::Ok().json(results))
 }
 
 pub async fn get_all_platforms(

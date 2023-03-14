@@ -1,3 +1,4 @@
+pub mod database;
 pub mod game;
 pub mod game_request;
 pub mod genre;

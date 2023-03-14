@@ -1,7 +1,13 @@
-use crate::games::game_request::GameRequest;
-use actix_web::{web, HttpResponse, Responder};
+use crate::{
+    games::game_request::GameRequest, platforms::database::find_platform_id_by_name,
+    responders::ServerResponseError,
+};
+use actix_web::{web, HttpResponse};
+use anyhow::Context;
 use sqlx::PgPool;
 use urn::Urn;
+
+use super::database::{delete_game_by_urn, find_game_by_urn, insert_game, update_game};
 
 pub const GAMES_ROOT_API: &str = "/games";
 
@@ -16,34 +22,125 @@ pub fn configure_game_routes(cfg: &mut web::ServiceConfig) {
             .service(
                 web::resource("/{game}")
                     .route(web::delete().to(delete_game))
-                    .route(web::get().to(get_brand_by_id))
-                    .route(web::put().to(put_brand))
+                    .route(web::get().to(get_game_by_urn))
+                    .route(web::put().to(put_game))
             )
     );
 }
 
 pub async fn post_game(
-    _request: web::Json<GameRequest>,
-    _db_pool: web::Data<PgPool>,
-) -> impl Responder {
-    HttpResponse::Ok()
+    request: web::Json<GameRequest>,
+    db_pool: web::Data<PgPool>,
+) -> Result<HttpResponse, ServerResponseError> {
+    let mut transaction = db_pool
+        .begin()
+        .await
+        .context("Unable to begin a database transaction")?;
+
+    let new_game = &request.0;
+
+    let platform_id = find_platform_id_by_name(&request.platform, &mut transaction).await?;
+    if let None = platform_id {
+        return Err(ServerResponseError::Conflict(String::from(
+            "platform not found",
+        )));
+    }
+
+    let game_urn = insert_game(new_game, platform_id.unwrap(), &mut transaction).await?;
+
+    transaction
+        .commit()
+        .await
+        .context("Unable to commit a database transaction")?;
+
+    let location = format!("/games/{}", &game_urn);
+    Ok(HttpResponse::Created()
+        .insert_header(("Location", location))
+        .finish())
 }
 
-pub async fn delete_game(_game_urn: web::Path<Urn>, _db_pool: web::Data<PgPool>) -> impl Responder {
-    HttpResponse::Ok()
+pub async fn delete_game(
+    game_urn: web::Path<Urn>,
+    db_pool: web::Data<PgPool>,
+) -> Result<HttpResponse, ServerResponseError> {
+    let mut transaction = db_pool
+        .begin()
+        .await
+        .context("Unable to begin a database transaction")?;
+
+    let _ = delete_game_by_urn(&game_urn, &mut transaction).await?;
+
+    transaction
+        .commit()
+        .await
+        .context("Unable to commit a database transaction")?;
+
+    Ok(HttpResponse::NoContent().finish())
 }
 
-pub async fn get_brand_by_id(
-    _game_urn: web::Path<Urn>,
-    _db_pool: web::Data<PgPool>,
-) -> impl Responder {
-    HttpResponse::Ok()
+pub async fn get_game_by_urn(
+    game_urn: web::Path<Urn>,
+    db_pool: web::Data<PgPool>,
+) -> Result<HttpResponse, ServerResponseError> {
+    let mut transaction = db_pool
+        .begin()
+        .await
+        .context("Unable to begin a database transaction")?;
+
+    let result = find_game_by_urn(&game_urn, &mut transaction).await?;
+
+    transaction
+        .commit()
+        .await
+        .context("Unable to commit a database transaction")?;
+
+    result
+        .map(|game| Ok(HttpResponse::Ok().json(game)))
+        .unwrap_or_else(|| Ok(HttpResponse::NotFound().finish()))
 }
 
-pub async fn put_brand(
-    _game_urn: web::Path<Urn>,
-    _request: web::Json<GameRequest>,
-    _db_pool: web::Data<PgPool>,
-) -> impl Responder {
-    HttpResponse::Ok()
+pub async fn put_game(
+    game_urn: web::Path<Urn>,
+    request: web::Json<GameRequest>,
+    db_pool: web::Data<PgPool>,
+) -> Result<HttpResponse, ServerResponseError> {
+    let game_update = &request.0;
+
+    let mut transaction = db_pool
+        .begin()
+        .await
+        .context("Unable to begin a database transaction")?;
+
+    let platform_id = find_platform_id_by_name(&game_update.platform, &mut transaction).await?;
+    if let None = platform_id {
+        return Err(ServerResponseError::Conflict(String::from(
+            "platform not found",
+        )));
+    }
+    let platform_id = platform_id.unwrap();
+
+    let existing_game = find_game_by_urn(&game_urn, &mut transaction).await?;
+
+    match existing_game {
+        Some(existing_game) => {
+            update_game(
+                existing_game.game_id,
+                game_update,
+                platform_id,
+                existing_game.metadata,
+                &mut transaction,
+            )
+            .await?
+        }
+        None => {
+            let _ = insert_game(game_update, platform_id, &mut transaction).await?;
+        }
+    }
+
+    transaction
+        .commit()
+        .await
+        .context("Unable to commit a database transaction")?;
+
+    Ok(HttpResponse::NoContent().finish())
 }

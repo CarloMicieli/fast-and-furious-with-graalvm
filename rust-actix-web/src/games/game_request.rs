@@ -13,6 +13,7 @@ pub struct GameRequest {
     pub series: Option<String>,
     pub developer: String,
     pub publisher: String,
-    pub rating: Rating,
+    pub rating: Option<Rating>,
+    pub plot: Option<String>,
     pub year: u32,
 }

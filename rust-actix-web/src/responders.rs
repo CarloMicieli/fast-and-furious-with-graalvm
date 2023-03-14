@@ -5,6 +5,9 @@ use thiserror::Error;
 pub enum ServerResponseError {
     #[error("An error has occurred ({0})")]
     GenericError(#[from] anyhow::Error),
+
+    #[error("{0}")]
+    Conflict(String),
 }
 
 impl ResponseError for ServerResponseError {

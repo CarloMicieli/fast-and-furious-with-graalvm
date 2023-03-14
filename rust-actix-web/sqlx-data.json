@@ -1,5 +1,61 @@
 {
   "db": "PostgreSQL",
+  "08c345766505ffb8272d8fb27f0e528b884d6cb32b51f46ff14a063d8a11dfdb": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Uuid",
+          "Varchar",
+          "VarcharArray",
+          "VarcharArray",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Int4",
+          "Int4",
+          "Uuid"
+        ]
+      }
+    },
+    "query": "update games set\n            game_urn = $1, \n            platform_id = $2, \n            title = $3, \n            genres = $4, \n            modes = $5, \n            series = $6, \n            developer = $7, \n            publisher = $8, \n            plot = $9, \n            rating = $10,\n            \"year\" = $11, \n            last_modified_date = now(), \n            version = $12\n            where game_id = $13;"
+  },
+  "1b18f4b1757127fb41d21d8e8a0a5290fdf5774da88302521a4ec4b51af8e26e": {
+    "describe": {
+      "columns": [
+        {
+          "name": "platform_id",
+          "ordinal": 0,
+          "type_info": "Uuid"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "select platform_id from platforms where name = $1"
+  },
+  "1f388531e0712b5a8adb10e07bbc9f11644b61614cfa9e1afe9c4e8e643ebf0c": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "delete from games where game_urn = $1"
+  },
   "2659e5d6ff18429ba04f2ed6ae5c1cb12f4fb908b91b5ad9b65e6fc966a27e33": {
     "describe": {
       "columns": [
@@ -143,6 +199,110 @@
       }
     },
     "query": "\n        select\n            platform_id, platform_urn, \n            name, manufacturer, generation, \n            type as \"platform_type!: String\",\n            year, release_eu, release_jp, release_na, discontinued_year, discontinued,\n            introductory_price, units_sold, media, cpu, memory,\n            display, sound, created_date, last_modified_date, version\n        from platforms\n        order by name;"
+  },
+  "4c7b603167356492926e831b1e86a457c243b11b7cd00194f6e415f97f071f4e": {
+    "describe": {
+      "columns": [
+        {
+          "name": "game_id",
+          "ordinal": 0,
+          "type_info": "Uuid"
+        },
+        {
+          "name": "game_urn",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "title",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "genres",
+          "ordinal": 3,
+          "type_info": "VarcharArray"
+        },
+        {
+          "name": "platform",
+          "ordinal": 4,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "modes",
+          "ordinal": 5,
+          "type_info": "VarcharArray"
+        },
+        {
+          "name": "series",
+          "ordinal": 6,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "developer",
+          "ordinal": 7,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "publisher",
+          "ordinal": 8,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "rating?: Rating",
+          "ordinal": 9,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "plot",
+          "ordinal": 10,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "year",
+          "ordinal": 11,
+          "type_info": "Int4"
+        },
+        {
+          "name": "created_date",
+          "ordinal": 12,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "last_modified_date",
+          "ordinal": 13,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "version",
+          "ordinal": 14,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "select \n         g.game_id,\n         g.game_urn,\n         g.title,\n         g.genres,\n         p.name as platform,\n         g.modes,\n         g.series,\n         g.developer,\n         g.publisher,\n         g.rating as \"rating?: Rating\",\n         g.plot,\n         g.year,\n         g.created_date,\n         g.last_modified_date,\n         g.version\n        from games as g\n        join platforms as p\n          on g.platform_id = p.platform_id\n        where g.game_urn = $1\n        limit 1;"
   },
   "6998da95e63bb07cda546a3ea5e133b2ebed259c4711c68dba8cd896c9438bf3": {
     "describe": {
@@ -319,6 +479,133 @@
       }
     },
     "query": "\n        insert into platforms (\n            platform_id, platform_urn, name, manufacturer, generation, type,\n            year, release_eu, release_jp, release_na, discontinued_year, discontinued,\n            introductory_price, units_sold, media, cpu, memory,\n            display, sound, created_date, last_modified_date, version)\n        values (\n            $1,$2,$3,$4,$5,$6,\n            $7,$8,$9,$10,$11,$12,\n            $13,$14,$15,$16,$17,$18,$19,\n            now(),now(),0);"
+  },
+  "be0d12a40dd7384a4ddb1e1598ff7b971d5515b5485a2e9752bffd52f3c44052": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Varchar",
+          "Uuid",
+          "Varchar",
+          "VarcharArray",
+          "VarcharArray",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Int4"
+        ]
+      }
+    },
+    "query": "insert into games (\n            game_id, game_urn, platform_id, title, genres, modes, series, developer, publisher, plot, rating,\n            \"year\", created_date, last_modified_date, version)\n        values (\n            $1, $2, $3, $4, $5, $6,\n            $7, $8, $9, $10, $11, $12,\n            now(), now(), 0);"
+  },
+  "c1c00308cca4d229b523c866ac07fd6d7538d97bb0767bb4f776ae1fbe826b87": {
+    "describe": {
+      "columns": [
+        {
+          "name": "game_id",
+          "ordinal": 0,
+          "type_info": "Uuid"
+        },
+        {
+          "name": "game_urn",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "title",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "genres",
+          "ordinal": 3,
+          "type_info": "VarcharArray"
+        },
+        {
+          "name": "platform",
+          "ordinal": 4,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "modes",
+          "ordinal": 5,
+          "type_info": "VarcharArray"
+        },
+        {
+          "name": "series",
+          "ordinal": 6,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "developer",
+          "ordinal": 7,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "publisher",
+          "ordinal": 8,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "rating?: Rating",
+          "ordinal": 9,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "plot",
+          "ordinal": 10,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "year",
+          "ordinal": 11,
+          "type_info": "Int4"
+        },
+        {
+          "name": "created_date",
+          "ordinal": 12,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "last_modified_date",
+          "ordinal": 13,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "version",
+          "ordinal": 14,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "select \n         g.game_id,\n         g.game_urn,\n         g.title,\n         g.genres,\n         p.name as platform,\n         g.modes,\n         g.series,\n         g.developer,\n         g.publisher,\n         g.rating as \"rating?: Rating\",\n         g.plot,\n         g.year,\n         g.created_date,\n         g.last_modified_date,\n         g.version\n        from games as g\n        join platforms as p\n          on g.platform_id = p.platform_id\n        where p.platform_urn = $1\n        order by g.title;"
   },
   "e15924bd446f4264b64fedfbdc36f1ca362f57a97d35e4307f4228dab7f12f59": {
     "describe": {
