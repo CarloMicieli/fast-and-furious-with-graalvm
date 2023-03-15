@@ -10,6 +10,7 @@ use actix_web::{web, HttpResponse};
 use anyhow::Context;
 use sqlx::PgPool;
 use urn::Urn;
+use crate::platforms::database::platform_exists;
 
 pub const PLATFORMS_ROOT_API: &str = "/platforms";
 
@@ -83,7 +84,13 @@ pub async fn post_platform(
         .await
         .context("Unable to begin a database transaction")?;
 
-    let platform_urn = insert_platform(new_platform, &mut transaction).await?;
+    let exists = platform_exists(&new_platform.name, &mut transaction).await?;
+    if exists {
+        return Err(ServerResponseError::AlreadyExists(new_platform.name.clone()));
+    }
+
+    let platform_urn: Urn = new_platform.try_into().unwrap();
+    insert_platform(new_platform, &platform_urn, &mut transaction).await?;
 
     transaction
         .commit()
@@ -145,7 +152,7 @@ pub async fn put_platform(
             .await?
         }
         None => {
-            let _ = insert_platform(platform_update, &mut transaction).await?;
+            insert_platform(platform_update, platform_urn, &mut transaction).await?;
         }
     };
 

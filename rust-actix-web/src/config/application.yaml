@@ -1,7 +1,7 @@
 server:
   host: 127.0.0.1
   port: 8008
-  workers: 2
+  workers: 8
 database:
   host: 127.0.0.1
   port: 5432

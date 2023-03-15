@@ -38,15 +38,17 @@ pub async fn post_game(
         .context("Unable to begin a database transaction")?;
 
     let new_game = &request.0;
+    let game_urn: Urn = new_game.try_into().unwrap();
 
     let platform_id = find_platform_id_by_name(&request.platform, &mut transaction).await?;
-    if let None = platform_id {
-        return Err(ServerResponseError::Conflict(String::from(
-            "platform not found",
+    if platform_id.is_none() {
+        return Err(ServerResponseError::Conflict(format!(
+            "platform {} not found",
+            new_game.platform
         )));
     }
 
-    let game_urn = insert_game(new_game, platform_id.unwrap(), &mut transaction).await?;
+    insert_game(new_game, &game_urn, platform_id.unwrap(), &mut transaction).await?;
 
     transaction
         .commit()
@@ -96,7 +98,12 @@ pub async fn get_game_by_urn(
 
     result
         .map(|game| Ok(HttpResponse::Ok().json(game)))
-        .unwrap_or_else(|| Ok(HttpResponse::NotFound().finish()))
+        .unwrap_or_else(|| {
+            Err(ServerResponseError::NotFound(format!(
+                "game {} not found",
+                game_urn
+            )))
+        })
 }
 
 pub async fn put_game(
@@ -112,11 +119,13 @@ pub async fn put_game(
         .context("Unable to begin a database transaction")?;
 
     let platform_id = find_platform_id_by_name(&game_update.platform, &mut transaction).await?;
-    if let None = platform_id {
-        return Err(ServerResponseError::Conflict(String::from(
-            "platform not found",
+    if platform_id.is_none() {
+        return Err(ServerResponseError::Conflict(format!(
+            "platform {} not found",
+            game_update.platform
         )));
     }
+
     let platform_id = platform_id.unwrap();
 
     let existing_game = find_game_by_urn(&game_urn, &mut transaction).await?;
@@ -133,7 +142,7 @@ pub async fn put_game(
             .await?
         }
         None => {
-            let _ = insert_game(game_update, platform_id, &mut transaction).await?;
+            insert_game(game_update, &game_urn, platform_id, &mut transaction).await?;
         }
     }
 

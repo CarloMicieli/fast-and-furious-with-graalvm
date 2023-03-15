@@ -2,7 +2,7 @@ use crate::configuration::Settings;
 use crate::games::handlers::configure_game_routes;
 use crate::platforms::handlers::configure_platform_routes;
 use actix_web::dev::Server;
-use actix_web::middleware::Compress;
+use actix_web::middleware::{Compress, Logger};
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use std::net::TcpListener;
 
@@ -14,6 +14,7 @@ pub fn run(listener: TcpListener, settings: &Settings) -> Result<Server, std::io
     let server = HttpServer::new(move || {
         App::new()
             .wrap(Compress::default())
+            .wrap(Logger::default())
             .route("/health-check", web::get().to(health_check))
             .configure(config_services)
             .app_data(web::JsonConfig::default().limit(4096))

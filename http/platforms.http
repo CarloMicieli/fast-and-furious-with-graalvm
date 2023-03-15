@@ -36,7 +36,7 @@ GET http://{{host}}:{{port}}/platforms
 ###
 
 # Get a platform
-GET http://{{host}}:{{port}}/platforms/urn:platform:snk-neo-geo-aes
+GET http://{{host}}:{{port}}/platforms/urn:platform:neo-geo-aes
 
 ###
 

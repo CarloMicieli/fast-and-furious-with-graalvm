@@ -3,21 +3,27 @@ use colored::Colorize;
 use rust_actix_web::app;
 use rust_actix_web::configuration::Settings;
 use std::net::TcpListener;
+use log::info;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
+
     let start_time = Utc::now().time();
     let settings = Settings::load().expect("Failed to read configuration");
     let listener = TcpListener::bind(settings.address()).expect("Failed to bind port");
 
-    println!("{}", &BANNER_TEXT.red());
-    println!("(Version {})", "4.3.1".bold());
+    info!("{}", &BANNER_TEXT.red());
+    info!("(Version {})", "4.3.1".bold());
     app::run(listener, &settings)
         .map(|res| {
             let end_time = Utc::now().time();
             let diff = end_time - start_time;
-            println!("Starting the server ({})...", settings.address().bold());
-            println!("Total time taken to run is {} ms", diff.num_milliseconds());
+            info!(
+                "Starting the server {}...",
+                settings.address().bold()
+            );
+            info!("Total time taken to run is {} ms", diff.num_milliseconds());
             res
         })?
         .await

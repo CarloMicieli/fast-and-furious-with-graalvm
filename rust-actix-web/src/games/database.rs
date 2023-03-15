@@ -18,7 +18,7 @@ pub async fn find_all_games_by_platform<'db>(
 ) -> Result<Vec<Game>, anyhow::Error> {
     let results = sqlx::query_as!(
         GameRow,
-        r#"select 
+        r#"select
          g.game_id,
          g.game_urn,
          g.title,
@@ -53,13 +53,29 @@ pub async fn find_all_games_by_platform<'db>(
     Ok(games)
 }
 
+pub async fn game_exists<'db>(
+    game_urn: &Urn,
+    transaction: &mut Transaction<'db, Postgres>,
+) -> Result<bool, anyhow::Error> {
+
+    let result = sqlx::query!(
+        r#"select game_id from games where game_urn = $1"#,
+        &game_urn.to_string()
+    )
+        .fetch_optional(transaction)
+        .await
+        .context("A database failure was encountered while trying to check the game existence.")?;
+
+    Ok(result.is_some())
+}
+
 pub async fn find_game_by_urn<'db>(
     game_urn: &Urn,
     transaction: &mut Transaction<'db, Postgres>,
 ) -> Result<Option<Game>, anyhow::Error> {
     let results = sqlx::query_as!(
         GameRow,
-        r#"select 
+        r#"select
          g.game_id,
          g.game_urn,
          g.title,
@@ -93,15 +109,11 @@ pub async fn find_game_by_urn<'db>(
 
 pub async fn insert_game<'db>(
     new_game: &GameRequest,
+    game_urn: &Urn,
     platform_id: Uuid,
     transaction: &mut Transaction<'db, Postgres>,
-) -> Result<Urn, anyhow::Error> {
+) -> Result<(), anyhow::Error> {
     let game_id = Uuid::new_v4();
-
-    let platform_slug = slugify(&new_game.platform);
-    let title_slug = slugify(&new_game.title);
-    let game_slug = format!("{}:{}", platform_slug, title_slug);
-    let game_urn = UrnBuilder::new("game", &game_slug).build().unwrap();
 
     let genres: Vec<String> = new_game
         .genres
@@ -134,7 +146,7 @@ pub async fn insert_game<'db>(
         .await
         .context("A database failure was encountered while trying to create a game.")?;
 
-    Ok(game_urn)
+    Ok(())
 }
 
 pub async fn update_game<'db>(
@@ -163,18 +175,18 @@ pub async fn update_game<'db>(
 
     sqlx::query!(
         r#"update games set
-            game_urn = $1, 
-            platform_id = $2, 
-            title = $3, 
-            genres = $4, 
-            modes = $5, 
-            series = $6, 
-            developer = $7, 
-            publisher = $8, 
-            plot = $9, 
+            game_urn = $1,
+            platform_id = $2,
+            title = $3,
+            genres = $4,
+            modes = $5,
+            series = $6,
+            developer = $7,
+            publisher = $8,
+            plot = $9,
             rating = $10,
-            "year" = $11, 
-            last_modified_date = now(), 
+            "year" = $11,
+            last_modified_date = now(),
             version = $12
             where game_id = $13;"#,
         &game_urn.to_string(),
@@ -202,15 +214,13 @@ pub async fn delete_game_by_urn<'db>(
     game_urn: &Urn,
     transaction: &mut Transaction<'db, Postgres>,
 ) -> Result<bool, anyhow::Error> {
-    let r = sqlx::query!(
+    let _ = sqlx::query!(
         r#"delete from games where game_urn = $1"#,
         &game_urn.to_string()
     )
     .execute(transaction)
     .await
     .context("A database failure was encountered while trying to delete a game.")?;
-
-    println!("{:?}", r);
 
     Ok(true)
 }

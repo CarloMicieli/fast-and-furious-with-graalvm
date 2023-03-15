@@ -2,7 +2,7 @@ import { check, sleep } from 'k6';
 import { SharedArray } from 'k6/data';
 import http from 'k6/http';
 
-const PORT = '8008';
+const PORT = '8000';
 const BASE_URL = `http://localhost:${PORT}`;
 
 const data = new SharedArray('platforms', function () {

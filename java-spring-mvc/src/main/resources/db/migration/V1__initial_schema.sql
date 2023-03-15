@@ -1,17 +1,17 @@
 CREATE TABLE platforms
 (
-    platform_id        uuid PRIMARY KEY NOT NULL,
-    platform_urn       varchar(100)     NOT NULL,
-    name               varchar(100)     NOT NULL,
-    manufacturer       varchar(100)     NOT NULL,
-    generation         varchar(100)     NOT NULL,
-    type               varchar(100)     NOT NULL,
-    year               integer          NOT NULL,
+    platform_id        uuid PRIMARY KEY   NOT NULL,
+    platform_urn       varchar(100)       NOT NULL,
+    name               varchar(100)       NOT NULL,
+    manufacturer       varchar(100)       NOT NULL,
+    generation         integer            NOT NULL,
+    type               varchar(100)       NOT NULL,
+    year               integer            NOT NULL,
     release_eu         date,
     release_jp         date,
     release_na         date,
     discontinued_year  integer,
-    discontinued       boolean          NOT NULL DEFAULT false,
+    discontinued       boolean            NOT NULL DEFAULT false,
     introductory_price decimal,
     units_sold         decimal,
     media              varchar(100) ARRAY NOT NULL,
@@ -19,9 +19,9 @@ CREATE TABLE platforms
     memory             varchar(1000),
     display            varchar(1000),
     sound              varchar(1000),
-    created_date       timestamp        NOT NULL,
-    last_modified_date timestamp        NOT NULL,
-    version            INT              NOT NULL
+    created_date       timestamptz        NOT NULL,
+    last_modified_date timestamptz        NOT NULL,
+    version            integer            NOT NULL
 );
 
 CREATE UNIQUE INDEX "Idx_platforms_urn"
@@ -42,9 +42,9 @@ CREATE TABLE games
     plot               varchar(5000),
     rating             varchar(100),
     year               integer            NOT NULL,
-    created_date       timestamp          NOT NULL,
-    last_modified_date timestamp          NOT NULL,
-    version            INT                NOT NULL,
+    created_date       timestamptz        NOT NULL,
+    last_modified_date timestamptz        NOT NULL,
+    version            integer            NOT NULL,
     CONSTRAINT "FK_games_platforms" FOREIGN KEY (platform_id)
         REFERENCES platforms (platform_id) MATCH SIMPLE
         ON UPDATE NO ACTION

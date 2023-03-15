@@ -1,8 +1,9 @@
 use config::{Config, Environment, File};
+use log::LevelFilter;
 use secrecy::{ExposeSecret, Secret};
 use serde::Deserialize;
 use sqlx::postgres::{PgConnectOptions, PgPoolOptions, PgSslMode};
-use sqlx::PgPool;
+use sqlx::{ConnectOptions, PgPool};
 
 /// Application settings
 #[derive(Deserialize, Debug)]
@@ -99,13 +100,17 @@ impl DatabaseSettings {
             PgSslMode::Prefer
         };
 
-        PgConnectOptions::new()
+        let mut options = PgConnectOptions::new()
             .application_name("rust-actix-web")
             .host(&self.host)
             .database(&self.name)
             .username(&self.username)
             .password(self.password.expose_secret())
             .port(self.port)
-            .ssl_mode(ssl_mode)
+            .ssl_mode(ssl_mode);
+
+        options.log_statements(LevelFilter::Off);
+
+        options
     }
 }

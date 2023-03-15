@@ -14,14 +14,30 @@ use super::{
     tech_specs::TechSpecs,
 };
 
+pub async fn platform_exists<'db>(
+    name: &str,
+    transaction: &mut Transaction<'db, Postgres>,
+) -> Result<bool, anyhow::Error> {
+    let platform_urn = UrnBuilder::new("platform", &slugify(name)).build().unwrap();
+    let result = sqlx::query!(
+        r#"select platform_id from platforms where platform_urn = $1"#,
+        &platform_urn.to_string()
+    )
+    .fetch_optional(transaction)
+    .await
+    .context("A database failure was encountered while trying to check the platform existence.")?;
+
+    Ok(result.is_some())
+}
+
 pub async fn find_platform_id_by_name<'db>(
     name: &str,
     transaction: &mut Transaction<'db, Postgres>,
 ) -> Result<Option<Uuid>, anyhow::Error> {
-    let result = sqlx::query_as!(
-        PlaformId,
-        r#"select platform_id from platforms where name = $1"#,
-        name
+    let platform_urn = UrnBuilder::new("platform", &slugify(name)).build().unwrap();
+    let result = sqlx::query!(
+        r#"select platform_id from platforms where platform_urn = $1"#,
+        &platform_urn.to_string()
     )
     .fetch_optional(transaction)
     .await
@@ -37,8 +53,8 @@ pub async fn find_all_platform<'db>(
         PlatformRow,
         r#"
         select
-            platform_id, platform_urn, 
-            name, manufacturer, generation, 
+            platform_id, platform_urn,
+            name, manufacturer, generation,
             type as "platform_type!: String",
             year, release_eu, release_jp, release_na, discontinued_year, discontinued,
             introductory_price, units_sold, media, cpu, memory,
@@ -65,8 +81,8 @@ pub async fn find_platform_by_urn<'db>(
         PlatformRow,
         r#"
         select
-            platform_id, platform_urn, 
-            name, manufacturer, generation, 
+            platform_id, platform_urn,
+            name, manufacturer, generation,
             type as "platform_type!: String",
             year, release_eu, release_jp, release_na, discontinued_year, discontinued,
             introductory_price, units_sold, media, cpu, memory,
@@ -98,26 +114,26 @@ pub async fn update_platform<'db>(
     let platform_urn = UrnBuilder::new("platform", &name_slug).build().unwrap();
 
     sqlx::query!(
-        r#"update platforms set 
+        r#"update platforms set
             platform_urn = $1,
-            name = $2, 
-            manufacturer = $3, 
-            generation = $4, 
+            name = $2,
+            manufacturer = $3,
+            generation = $4,
             type = $5,
-            year = $6, 
-            release_eu = $7, 
-            release_jp = $8, 
-            release_na = $9, 
-            discontinued_year = $10, 
+            year = $6,
+            release_eu = $7,
+            release_jp = $8,
+            release_na = $9,
+            discontinued_year = $10,
             discontinued = $11,
-            introductory_price = $12, 
-            units_sold = $13, 
-            media = $14, 
-            cpu = $15, 
+            introductory_price = $12,
+            units_sold = $13,
+            media = $14,
+            cpu = $15,
             memory = $16,
-            display = $17, 
-            sound = $18, 
-            last_modified_date = now(), 
+            display = $17,
+            sound = $18,
+            last_modified_date = now(),
             version = $19
         where platform_id = $20;"#,
         &platform_urn.to_string(),
@@ -150,8 +166,9 @@ pub async fn update_platform<'db>(
 
 pub async fn insert_platform<'db>(
     new_platform: &PlatformRequest,
+    platform_urn: &Urn,
     transaction: &mut Transaction<'db, Postgres>,
-) -> Result<Urn, anyhow::Error> {
+) -> Result<(), anyhow::Error> {
     let platform_id = Uuid::new_v4();
 
     let medias: &Vec<String> = &new_platform
@@ -159,9 +176,6 @@ pub async fn insert_platform<'db>(
         .iter()
         .map(|media| media.to_string())
         .collect();
-
-    let name_slug = slugify(&new_platform.name);
-    let platform_urn = UrnBuilder::new("platform", &name_slug).build().unwrap();
 
     sqlx::query!(
         r#"
@@ -199,12 +213,7 @@ pub async fn insert_platform<'db>(
     .await
     .context("A database failure was encountered while trying to store a platform.")?;
 
-    Ok(platform_urn)
-}
-
-#[derive(Debug)]
-struct PlaformId {
-    pub platform_id: Uuid,
+    Ok(())
 }
 
 #[derive(Debug)]
